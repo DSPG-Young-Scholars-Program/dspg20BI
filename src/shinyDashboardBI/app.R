@@ -3,6 +3,42 @@ library(dplyr)
 library(ggplot2)
 
 
+#Profiling tab
+#table of completeness, uniqueness, validity, duplicates
+#drop-down menu for each year: show top publishers and companies
+#paragraph talking about # of valid vs invalid
+#visuals used in our midterm presentation
+#mention number of articles per year
+
+#Data Sources and Methods tab
+  #data tab
+    #list out data sources like fafsa (include logos/images beside each dataset)
+    #include url for fda and ndc at the end of their paragraphs
+  #Methods
+   #Cleaning all three datasets to get corporate families
+   #Fuzzy Matching
+   #Network analysis
+
+#Results tab
+ #against themselves
+   #ndc x ndc results
+   #fda x fda results
+   #dna x dna
+ #across
+  #across fda x ndc
+  #across fda x dna
+  #across dna x ndc
+ #network analysis
+
+
+#chart that shows matches across all three
+
+
+
+
+
+
+
 ui <- fluidPage(
 
   navbarPage("Business Innovation",
