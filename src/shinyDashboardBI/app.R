@@ -10,6 +10,10 @@ library(ggplot2)
 #visuals used in our midterm presentation
 #mention number of articles per year
 
+
+
+
+
 #Data Sources and Methods tab
   #data tab
     #list out data sources like fafsa (include logos/images beside each dataset)
@@ -61,13 +65,31 @@ ui <- fluidPage(
                         to supplement the current measure of innovation", tags$a(href = "https://www.nsf.gov/statistics/srvyindustry/about/brdis/", "the Business R&D and Innovation Survey (BRDIS)"),"conducted by The National Science Foundation.")
                       ),
              #ui
-             tabPanel("Profiling",style = "margin:20px",
-                      h2("Lorem Ipsum"),
-                      tableOutput("profile"),
-                      h3("Lorem Ipsum")
+             navbarMenu("Profiling",
+             tabPanel("Tables",style = "margin:20px",
+                      fluidRow(column(5,
+                                      selectInput("selectTable", "Select", choices = c("Validity", "Profiling Table")),
+                                      textOutput("aboutProfiling")
+
+                      ),
+                      column(7,
+                             #h3("Validity Table", style = "color:#232D4B"),
+                             tableOutput("tables")
+
+
+                      )),
+
 
              ),
 
+             tabPanel("Charts", style = "margin:20px",
+                      fluidRow(column(5,
+                                      selectInput("year", "Year", choices = c(2013, 2014,2015,2016,2017,2018))
+
+                      ))
+
+                      )
+),
              #end profiling tab------------------------------------------
 
 
@@ -112,9 +134,30 @@ ui <- fluidPage(
 
 
 server <- function(input, output) {
-  output$profile <- renderTable({
-    x <- read.csv("companyfrequencyandname.csv")
-    head(x)
+  output$tables <- renderTable({
+    if(input$selectTable == "Validity"){
+
+
+      valid <- read.csv("validitytable.csv")
+      names(valid)[names(valid) == "X"] <- "Column Name"
+
+      valid
+    }else{
+      profTable <- read.csv("profilingTable.csv")
+
+      names(profTable)[names(profTable) == "X"] <- "Column Name"
+
+      profTable
+    }
+
+  })
+
+  output$aboutProfiling <- renderText({
+    if(input$selectTable == "Validity"){
+      print("Definitions:")
+    }else{
+      print("Definitions:")
+    }
   })
 
 }
