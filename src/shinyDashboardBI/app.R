@@ -277,6 +277,7 @@ server <- function(input, output) {
 
 
 
+
       withinTable
 
     }else if(input$within == "NDCxNDC"){
@@ -293,6 +294,12 @@ server <- function(input, output) {
       acrossTable <- read.csv("fdaxndc.csv")
 
       acrossTable$X <- NULL
+      acrossTable$fda.row <- NULL
+      acrossTable$clean.fda.company.name <- NULL
+      acrossTable$clean.ndc.row <- NULL
+      acrossTable$fuzz.ratio <- NULL
+      acrossTable$clean.ndc.company <- NULL
+
       acrossTable
     }else if(input$across == "FDAxDNA"){
       acrossTable <- read.csv("fda_dna_matching.csv")
