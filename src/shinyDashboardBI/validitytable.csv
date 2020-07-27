@@ -1,8 +1,8 @@
 ,Validity
-company_codes,0.8685946151340789
-company_codes_occur,0.8916497010307626
-company_codes_about,0.9940870695256661
-company_codes_lineage,0.9936544563022787
-company_codes_relevance,0.860634151480038
-body,0.78286
-publication_datetime,1.0
+company_codes,86.8594615134079
+company_codes_occur,89.16497010307626
+company_codes_about,99.4087069525666
+company_codes_lineage,99.36544563022787
+company_codes_relevance,86.0634151480038
+body,78.286
+publication_datetime,100.0
