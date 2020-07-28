@@ -59,10 +59,10 @@ ui <- fluidPage(
              navbarMenu("Profiling",
 
              tabPanel("Charts", style = "margin:20px",
-                      fluidRow(column(5,
-                                      selectInput("year", "Year", choices = c(2013, 2014,2015,2016,2017,2018))
-
-                      ))
+                      sidebarLayout(
+                        sidebarPanel(selectInput("year", "Year", choices = c(2013, 2014,2015,2016,2017,2018))),
+                        mainPanel("Enter charts here")
+                      )
 
                       ),
 
@@ -240,6 +240,12 @@ server <- function(input, output) {
       withinTable <- read.csv("fdaxfda.csv")
 
       withinTable$X <- NULL
+      withinTable$fuzz.ratio <- NULL
+      withinTable$original.row.number <- NULL
+
+      names(withinTable)[names(withinTable) == "clean.company.name"] <- "Corporate Family"
+      names(withinTable)[names(withinTable) == "company.matches"] <- "Matches"
+      names(withinTable)[names(withinTable) == "original.company.names"] <- "Original Company Name"
 
 
 
@@ -250,6 +256,12 @@ server <- function(input, output) {
       withinTable <- read.csv("ndcxndc.csv")
 
       withinTable$X <- NULL
+      withinTable$fuzz.ratio <- NULL
+      withinTable$original.row.number <- NULL
+
+      names(withinTable)[names(withinTable) == "clean.company.name"] <- "Corporate Family"
+      names(withinTable)[names(withinTable) == "company.matches"] <- "Matches"
+      names(withinTable)[names(withinTable) == "original.company.names"] <- "Original Company Name"
 
       withinTable
     }
