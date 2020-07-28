@@ -4,50 +4,15 @@ library(ggplot2)
 library(data.table)
 library(rsconnect)
 
-#Most recent 7/26 Evening
+
+#to do 7/28
+  #remove and rename column names in results tab
+  #get all the charts needed for this app
+  #Try to add a chart and images to app
+  #Begin filling out methods portion
+  #Work on about section, detailing the project and the problem we are trying to solve
 
 
-#Notes
-#dateline row in the profiling table is the only one that doesn't add up.
-
-#Profiling tab
-
-#drop-down menu for each year: show top publishers and companies
-#paragraph talking about # of valid vs invalid
-#visuals used in our midterm presentation
-#mention number of articles per year
-
-
-
-
-
-#Data Sources and Methods tab
-  #data tab
-    #list out data sources like fafsa (include logos/images beside each dataset)
-    #include url for fda and ndc at the end of their paragraphs
-  #Methods
-   #Cleaning all three datasets to get corporate families
-   #Fuzzy Matching
-   #Network analysis
-
-#Results tab
- #against themselves
-
-
-   #dna x dna
- #across
-
-
-  #across dna x ndc
- #network analysis
-
-
-#chart that shows matches across all three
-
-
-#to do 7/26
-
-   #double check both charts
 
 
 
@@ -302,17 +267,39 @@ server <- function(input, output) {
       acrossTable$clean.ndc.company <- NULL
 
       names(acrossTable)[names(acrossTable) == "original.fda.company"] <- "Original FDA Company"
+      names(acrossTable)[names(acrossTable) == "corporate.family"] <- "Corporate Family"
+      names(acrossTable)[names(acrossTable) == "original.ndc.company"] <- "Original NDC Company"
 
       acrossTable
     }else if(input$across == "FDAxDNA"){
       acrossTable <- read.csv("fda_dna_matching.csv")
 
+      acrossTable$fda.row <- NULL
+      acrossTable$clean.fda.company.name <- NULL
+      acrossTable$clean.dna.row <- NULL
+      acrossTable$fuzz.ratio <- NULL
+      acrossTable$clean.dna.company <- NULL
+
       acrossTable$X <- NULL
+
+      names(acrossTable)[names(acrossTable) == "original.fda.company"] <- "Original FDA Company"
+      names(acrossTable)[names(acrossTable) == "corporate.family"] <- "Corporate Family"
+      names(acrossTable)[names(acrossTable) == "original.dna.company"] <- "Original DNA Company"
       acrossTable
     }else{
       acrossTable <- read.csv("ndc_dna_matching.csv")
 
       acrossTable$X <- NULL
+      acrossTable$NDC.row <- NULL
+      acrossTable$clean.NDC.company <- NULL
+      acrossTable$clean.DNA.row <- NULL
+      acrossTable$fuzz.ratio <- NULL
+      acrossTable$clean.DNA.company <- NULL
+
+      names(acrossTable)[names(acrossTable) == "original.NDC.company"] <- "Original NDC Company"
+      names(acrossTable)[names(acrossTable) == "corporate.family"] <- "Corporate Family"
+      names(acrossTable)[names(acrossTable) == "original.DNA.company"] <- "Original DNA Company"
+
       acrossTable
     }
   })
