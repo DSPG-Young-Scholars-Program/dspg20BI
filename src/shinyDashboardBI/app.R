@@ -300,6 +300,8 @@ server <- function(input, output) {
       acrossTable$fuzz.ratio <- NULL
       acrossTable$clean.ndc.company <- NULL
 
+      names(acrossTable)[names(acrossTable) == "original.fda.company"] <- "Original FDA Company"
+
       acrossTable
     }else if(input$across == "FDAxDNA"){
       acrossTable <- read.csv("fda_dna_matching.csv")
