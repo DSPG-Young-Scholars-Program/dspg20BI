@@ -27,7 +27,12 @@ ui <- fluidPage(
 
   navbarPage(title = span("Business Innovation", style = "color:#232D4B"),
              tabPanel("About",style = "margin:45px",
-                      tags$h1("Business Innovation"),
+                      fluidRow(
+                        column(3, p("insert image")),
+                        column(6, h1("Business Innovation")),
+                        column(3, tags$img(height = "80%", width = "80%", src = "partnerlogos.png", align = "right"))
+                      ),
+                      #tags$h1("Business Innovation"),
                       h3("SDAD/DSPG"),
                       p("The Social and Decision Analytics Division (SDAD) is one of three research divisions within the Biocomplexity Institute and Initiative at the University of Virginia.
                         SDAD combines expertise in statistics and social and behavioral sciences to develop evidence-based research
