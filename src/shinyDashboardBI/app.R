@@ -61,7 +61,7 @@ ui <- fluidPage(
              tabPanel("Charts", style = "margin:20px",
                       sidebarLayout(
                         sidebarPanel(selectInput("year", "Year", choices = c(2013, 2014,2015,2016,2017,2018))),
-                        mainPanel("Enter charts here")
+                        mainPanel(tags$img(height = "80%", width = "80%",src = "2014Publisherplot.png"))
                       )
 
                       ),
@@ -138,8 +138,9 @@ ui <- fluidPage(
                           style = "margin-right: 120px;",
                           fluidRow(
                             column(3, h4("Dow Jones News & Analytics (DNA)")),
-                            column(6, wellPanel(p(style = "font-size:15px","The Dow Jones DNA platform collects information from Dow Jones publication with premium and licensed third party sources. This proprietary data platform contains 1.3bn articles each labeled with unique DNA taxonomies tags including word count, source name, and company code. More information on all the included data tags can be found on the DNA website. This dataset served as the primary resource for alternative text sources and will inspire the machine learning algorithms that will predict innovation. ")))
-                          ),
+                            column(6, wellPanel(p(style = "font-size:15px","The Dow Jones DNA platform collects information from Dow Jones publication with premium and licensed third party sources. This proprietary data platform contains 1.3bn articles each labeled with unique DNA taxonomies tags including word count, source name, and company code. More information on all the included data tags can be found on the DNA website. This dataset served as the primary resource for alternative text sources and will inspire the machine learning algorithms that will predict innovation. "))),
+                            tags$img(height = "30%", width = "30%",src = "dnalogo.png")
+                            ),
                           hr(),
                           fluidRow(style = "margin-top:100px",
                                    column(3, h4("US Food and Drug Administration (FDA)")),
@@ -155,12 +156,12 @@ ui <- fluidPage(
                         tabPanel("Methods",
                                  h3("Methods", align = "center", style = "margin-bottom: 50px"),
                                  style = "margin-left: 120px;",
-                                 style = "margin-top: 10px;",
+                                 style = "margin-top: 30px;",
                                  style = "margin-right: 120px;",
 
                                    fluidRow(
                                      column(3, h4("Cleaning")),
-                                     column(6, p(style = "font-size:20px",""))
+                                     column(6, wellPanel(p(style = "font-size:15px","In order to match company names across all three dataset we had to make all the strings similar to each other to facilitate fuzzy matching. To accomplish this we used regular expressions, the string package and pandas' package. The first step in the process was to lowercase all the strings. Then, remove punctuations except for underscores, dashes, ampersands, percent and dollar symbols. Afterwards, we removed any parenthesis along with the content within the parentheses. We then removed single characters from the beginning and removed numbers, as numbers complicate the matching process. Additionally, we removed extra spaces between words, the prefix b, and any legal entities from the company name. This provided all three data sets to have similar words in the entries that would make matching companies that may have ")))
                                    ),
                                    hr(),
                                    fluidRow(style = "margin-top:100px",
@@ -207,6 +208,16 @@ ui <- fluidPage(
 
 
 server <- function(input, output) {
+
+  output$chart <- renderImage({
+    tags$img(height = 100, width = 100,src = "2013Publisherplot.png")
+  })
+
+
+
+
+
+
   output$tables <- renderTable({
     if(input$selectTable == "Validity"){
 
