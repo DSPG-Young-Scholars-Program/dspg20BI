@@ -137,13 +137,12 @@ ui <- fluidPage(
                           style = "margin-top: 30px;",
                           style = "margin-right: 120px;",
                           fluidRow(
-                            column(3, h4("Dow Jones News & Analytics (DNA)")),
+                            column(3, tags$img(height = "100%", width = "100%",src = "dnalogo.png")),
                             column(6, wellPanel(p(style = "font-size:15px","The Dow Jones DNA platform collects information from Dow Jones publication with premium and licensed third party sources. This proprietary data platform contains 1.3bn articles each labeled with unique DNA taxonomies tags including word count, source name, and company code. More information on all the included data tags can be found on the DNA website. This dataset served as the primary resource for alternative text sources and will inspire the machine learning algorithms that will predict innovation. "))),
-                            tags$img(height = "30%", width = "30%",src = "dnalogo.png")
                             ),
                           hr(),
                           fluidRow(style = "margin-top:100px",
-                                   column(3, h4("US Food and Drug Administration (FDA)")),
+                                   column(3, tags$img(height = "100%", width = "100%", src = "fdalogo.png")),
                                    column(7, wellPanel(p(style = "font-size:15px", "FDA drug approvals dataset generated and reviewed by FDA and includes information regarding. ")))
                           ),
                           hr(),
@@ -166,7 +165,7 @@ ui <- fluidPage(
                                    hr(),
                                    fluidRow(style = "margin-top:100px",
                                             column(3, h4("Fuzzy Matching")),
-                                            column(7, h4(""))
+                                            column(6, wellPanel(p("To complete the fuzzy matching, we used a package by SeatGeeks called FuzzyWuzzy. FuzzyWuzzy uses the Levenshtein distance to calculate the minimum number of single character edits (insertions, deletions or substitutions) needed to change one word to another. The package contains several functions that produces a similarity ratio out of 100. The fuzz.ratio function calculates the ratio by using the basic Levenshtein distance and the equation from diff.libratio: 2*M / T, where T is the total number of characters in both strings and M is the number of matches. The fuzz.partial_ratio compares the shortest string (n) against all the n-length substrings of the larger string and returns the highest fuzz partial ratio. Therefore, if the shortest string is found within the larger string then the partial ratio will return a ratio of 100. For our purposes, we focused on a fuzz.ratio that would only produce 100 or perfect matches.  ")))
                                    ),
                                    hr(),
                                    fluidRow(style = "margin-top:100px",
