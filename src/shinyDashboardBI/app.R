@@ -28,7 +28,7 @@ ui <- fluidPage(
   navbarPage(title = span("Business Innovation", style = "color:#232D4B"),
              tabPanel("About",style = "margin:45px",
                       fluidRow(
-                        column(3, p("insert image")),
+                        column(3, tags$img(height = "80%", width = "80%", src = "BII logo.jpg")),
                         column(6, h1("Business Innovation")),
                         column(3, tags$img(height = "80%", width = "80%", src = "partnerlogos.png", align = "right"))
                       ),
