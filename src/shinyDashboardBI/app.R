@@ -28,12 +28,12 @@ ui <- fluidPage(
   navbarPage(title = span("Business Innovation", style = "color:#232D4B"),
              tabPanel("About",style = "margin:45px",
                       fluidRow(
-                        column(3, tags$img(height = "80%", width = "80%", src = "BII logo.jpg")),
+                        column(3, tags$img(height = "80%", width = "80%", src = "biilogo.png")),
                         column(6, h1("Business Innovation")),
                         column(3, tags$img(height = "80%", width = "80%", src = "partnerlogos.png", align = "right"))
                       ),
-                      #tags$h1("Business Innovation"),
-                      h3("SDAD/DSPG"),
+
+                      h5("SDAD/DSPG"),
                       p("The Social and Decision Analytics Division (SDAD) is one of three research divisions within the Biocomplexity Institute and Initiative at the University of Virginia.
                         SDAD combines expertise in statistics and social and behavioral sciences to develop evidence-based research
                         and quantitative methods to inform policy decision-making and evaluation.
@@ -45,7 +45,7 @@ ui <- fluidPage(
                         to work together on projects that address state, federal, and local government challenges around critical social issues relevant in the world today.
                         DSPG young scholars conduct research at the intersection of statistics, computation, and the social sciences to determine how information
                         generated within every community can be leveraged to improve quality of life and inform public policy. ", style = "color:#232D4B"),
-                      h3("DSPG20BI Summer Project"),
+                      h5("DSPG20BI Summer Project"),
                       p("The DSPG20BI team is one of x number of teams within the larger DSPG program tasked with looking into detecting product innovation within non-traditional data sources.
                         Our goal is to find instances of product innovation within the pharmaceutical industry thorugh niche natural-language processessing techniques in an attempt
                         to supplement the current measure of innovation", tags$a(href = "https://www.nsf.gov/statistics/srvyindustry/about/brdis/", "the Business R&D and Innovation Survey (BRDIS)"),"conducted by The National Science Foundation."),
@@ -54,9 +54,9 @@ ui <- fluidPage(
                         These functions were written particularly focused on datasets mentioning innovation amongst pharmaceutical companies. However, the functions can be applied to any dataset containing strings.
                         The goal of this task it to provide future insights on the companies doing innovation as it pertains to the OLSO manual definition"),
 
-                      h3("Our Team"),
-                      p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut augue ligula, pharetra vel quam et, hendrerit pharetra turpis. Vestibulum eu faucibus neque. Proin efficitur odio at euismod pretium. Nam dui risus, porta eu dignissim ac, dapibus at dui. Vivamus tincidunt ut magna consectetur rutrum. Pellentesque ullamcorper, eros sed efficitur sagittis, nisi nisi condimentum odio, ut rutrum orci elit vitae elit. Nam pulvinar eros porta, egestas libero id, volutpat nibh. Phasellus viverra velit vitae ligula vehicula ultrices. Vestibulum in purus nec turpis consequat sollicitudin.
-                        Vestibulum faucibus nulla porta neque pulvinar, convallis rhoncus tellus dictum. Sed eu lorem placerat, commodo odio nec, suscipit felis. Vivamus eu metus ullamcorper, accumsan metus eu, commodo sem.")
+                      h5("Our Team"),
+                      p("SDAD: Devika Mahoney-Nair, Gizem Korkmaz, & Neil Alexander")
+
 
                       ),
 
@@ -71,18 +71,11 @@ ui <- fluidPage(
 
                       ),
 
-             tabPanel("Profiles", style = "margin:20px",
+             tabPanel("Profiles", style = "margin:60px",
                       h3("Profiling", align = "center"),
-                      p(style = "margin-top:25px","One of our first tasks in the SDAD data science framework is to profile the data, which involves determining the quality of the data and its fitness for use. Here we profiled the dna data, looking
-                      primarily at metrics such as completeness, uniqueness, duplication, and validity. Completeness refers to how complete the data is as a percentage. Uniqueness measures the number of unique values entered for a variable.
-                        Duplicates is just the percent of duplicated values entered for a variable." ),
-                      p("Further analysis using the pandas profiling package indicated that there were 35 total variables within the DNA dataset, with 29 of them being categorical variables, and 6 of them being numeric. In total, there were 1,942,855 observations."),
-                      p("We were concerned primarily with a select number of variables when checking for validity. Here, we are defining the criteria for the variables of interest differently, but the overall definition of
-                        what a valid entry is remains consistent-any value whose attributes make sense for the given variable and is a legitimate entry. For any variable involving company codes, we defined a code(and by extension the associated company),
-                        as being a valid entry if and only if the code appeaered in both the dna dataset and the accompanying dna data dictionary. From what we gathered, we found that out of the 73,668 unique company codes found in the DNA dataset, only 64,005 codes were also found in the data dictionary, leading us to conclude that there
-                        were only about 86.9% companies we would consider valid in the DNA data. This same approach was applied to the other company columns shown in the validity table below.
-                        For date of publication, 100% of the articles fit our criteria of being published after 2010. For body, we wanted articles with more than 100 words (anything less would be indicative of a bot generated-article) and less than
-                        10,000. Based on this criteria, we found that 78.3% of the articles were what we considered valid."),
+                      p(style = "margin-top:25px","Profiling is essential for ensuring the contents of datasets align with the projects overall goal and resources. The first goal of the Business Innovation project is to obtain a general understanding of what companies are the ones producing recent innovation. Therefore, we profiled the DNA data to include only unique, complete and valid entries.  We defined a valid entry, as an article that was published after 2010, had more than 100 but less than 10,000 characters and had a company code that was in the company codes dictionary. The year restriction will allow us to only consider recent innovations, the character restriction will allow our computing resources to fully analyze the text and the company code restriction will ensure that we have the full name of the company which will provide better insights on the companies completing innovation. " ),
+                      br(),
+                      p("Originally, the dataset contained 1,942,855 data entries. Given a restriction on memory and running power, we decided to only have unique and complete entries as it diminished the dataset by 96.2% to 73, 688 entries, while still fulfilling our main goal of understanding what companies are producing innovation. The visualization [above/below] demonstrates the total percentage of data entries that passed our validity checks.  About 78.3% of the total unique entries passed the validity check, 100% of the entries were published after 2010, and 91.7% of the entries contained valid company codes.  "),
                       sidebarLayout(
                         sidebarPanel(
                           width = 6,
