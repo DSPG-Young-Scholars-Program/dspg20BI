@@ -65,16 +65,23 @@ ui <- fluidPage(
              #ui
              navbarMenu("Profiling",
 
-             tabPanel("Charts", style = "margin:20px",
+             tabPanel("Publishers", style = "margin:20px",
+                      h5("Visuals"),
+                      br(),
+                      br(),
+                      br(),
                       sidebarLayout(
-                        sidebarPanel(selectInput("year", "Year", choices = c(2013, 2014,2015,2016,2017,2018))),
-                        mainPanel(imageOutput("pub"))
+                        sidebarPanel(
+                          h4("Top Publishers"),
+                          selectInput("year", "Year", choices = c(2013, 2014,2015,2016,2017,2018))),
+                        mainPanel(
+                          imageOutput("pub"))
                       )
 
                       ),
 
              tabPanel("Profiles", style = "margin:60px",
-                      h3("Profiling", align = "center"),
+                      h5("Profiling", align = "center"),
                       p(style = "margin-top:25px","Profiling is essential for ensuring the contents of datasets align with the projects overall goal and resources. The first goal of the Business Innovation project is to obtain a general understanding of what companies are the ones producing recent innovation. Therefore, we profiled the DNA data to include only unique, complete and valid entries.  We defined a valid entry, as an article that was published after 2010, had more than 100 but less than 10,000 characters and had a company code that was in the company codes dictionary. The year restriction will allow us to only consider recent innovations, the character restriction will allow our computing resources to fully analyze the text and the company code restriction will ensure that we have the full name of the company which will provide better insights on the companies completing innovation. " ),
                       br(),
                       p("Originally, the dataset contained 1,942,855 data entries. Given a restriction on memory and running power, we decided to only have unique and complete entries as it diminished the dataset by 96.2% to 73, 688 entries, while still fulfilling our main goal of understanding what companies are producing innovation. The visualization [above/below] demonstrates the total percentage of data entries that passed our validity checks.  About 78.3% of the total unique entries passed the validity check, 100% of the entries were published after 2010, and 91.7% of the entries contained valid company codes.  "),
@@ -169,7 +176,7 @@ ui <- fluidPage(
                                    hr(),
                                    fluidRow(style = "margin-top:100px",
                                             column(3, h4("Fuzzy Matching")),
-                                            column(6, wellPanel(p("To complete the fuzzy matching, we used a package by SeatGeeks called FuzzyWuzzy. FuzzyWuzzy uses the Levenshtein distance to calculate the minimum number of single character edits (insertions, deletions or substitutions) needed to change one word to another. The package contains several functions that produces a similarity ratio out of 100. The fuzz.ratio function calculates the ratio by using the basic Levenshtein distance and the equation from diff.libratio: 2*M / T, where T is the total number of characters in both strings and M is the number of matches. The fuzz.partial_ratio compares the shortest string (n) against all the n-length substrings of the larger string and returns the highest fuzz partial ratio. Therefore, if the shortest string is found within the larger string then the partial ratio will return a ratio of 100. For our purposes, we focused on a fuzz.ratio that would only produce 100 or perfect matches.  ")))
+                                            column(6, wellPanel(p(style = "font-size:15px","To complete the fuzzy matching, we used a package by SeatGeeks called FuzzyWuzzy. FuzzyWuzzy uses the Levenshtein distance to calculate the minimum number of single character edits (insertions, deletions or substitutions) needed to change one word to another. The package contains several functions that produces a similarity ratio out of 100. The fuzz.ratio function calculates the ratio by using the basic Levenshtein distance and the equation from diff.libratio: 2*M / T, where T is the total number of characters in both strings and M is the number of matches. The fuzz.partial_ratio compares the shortest string (n) against all the n-length substrings of the larger string and returns the highest fuzz partial ratio. Therefore, if the shortest string is found within the larger string then the partial ratio will return a ratio of 100. For our purposes, we focused on a fuzz.ratio that would only produce 100 or perfect matches.  ")))
                                    ),
                                    hr(),
                                    fluidRow(style = "margin-top:100px",
