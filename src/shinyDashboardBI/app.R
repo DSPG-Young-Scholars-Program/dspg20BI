@@ -16,12 +16,6 @@ library(rsconnect)
 
 
 
-
-#Finish writing as much as you can about the data sources
-
-
-
-
 ui <- fluidPage(
   theme ="themes.css",
 
