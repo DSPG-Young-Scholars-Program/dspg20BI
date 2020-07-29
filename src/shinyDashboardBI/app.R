@@ -55,7 +55,9 @@ ui <- fluidPage(
                         The goal of this task it to provide future insights on the companies doing innovation as it pertains to the OLSO manual definition"),
 
                       h5("Our Team"),
-                      p("SDAD: Devika Mahoney-Nair, Gizem Korkmaz, & Neil Alexander")
+                      p("SDAD: Devika Mahoney-Nair, Gizem Korkmaz, & Neil Alexander"),
+                      p("DSPG: Susweta Ray (Fellow), Isabel Gomez (Intern), Ian MacLeod (Intern)"),
+                      p("Sponsor: Gary Anderson, National Science Foundation (NSF), National Center for Science and Engineering (NCSES)")
 
 
                       ),
@@ -141,12 +143,16 @@ ui <- fluidPage(
                           hr(),
                           fluidRow(style = "margin-top:100px",
                                    column(3, tags$img(height = "100%", width = "100%", src = "fdalogo.png")),
-                                   column(7, wellPanel(p(style = "font-size:15px", "FDA drug approvals dataset generated and reviewed by FDA and includes information regarding. ")))
+                                   column(7, wellPanel(
+                                     tags$b("Approvals"),
+                                     p(style = "font-size:15px", "FDA drug approvals dataset generated and reviewed by FDA and includes information regarding. ",
+                                     br(),
+                                     br(),
+                                     tags$b("National Drug Code"),
+                                     p(style = "font-size:15px", "The National Drug Code (NDC) Directory is a publicly available source provided by the FDA that contains a list of all current drugs manufactured, prepared, propagated, compounded, or processed for commercial distribution. The data content is manually inputted by the companies producing the drugs as required per the Drug Listing Act of 1972. The FDA assigns the NDC – a unique three-digit number, to the drug products. The administration then updates the NDC directory daily with the NDC along with the rest of the information provided. We gathered content from this dataset on [enter date here]. This data was used to cross-validate the companies that we had previously identified as producing an innovation. ")
+                                    )))
                           ),
-                          hr(),
-                          fluidRow(style = "margin-top:100px",
-                                   column(3, h4("National Drug Code (NDC)")),
-                                   column(7, wellPanel(p(style= "font-size:15px", "The National Drug Code (NDC) Directory  is a publicly available source provided by the FDA that contains a list of all current drugs manufactured, prepared, propagated, compounded, or processed for commercial distribution. The data content is manually inputted by the companies producing the drugs as required per the Drug Listing Act of 1972. The FDA assigns the NDC – a unique three-digit number, to the drug products. The administration then updates the NDC directory daily with the NDC along with the rest of the information provided. We gathered content from this dataset on [enter date here]. This data was used to cross-validate the companies that we had previously identified as producing an innovation. "))))
+
                         ),
 
 
