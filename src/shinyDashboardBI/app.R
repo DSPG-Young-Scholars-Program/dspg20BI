@@ -66,7 +66,7 @@ ui <- fluidPage(
              tabPanel("Charts", style = "margin:20px",
                       sidebarLayout(
                         sidebarPanel(selectInput("year", "Year", choices = c(2013, 2014,2015,2016,2017,2018))),
-                        mainPanel(tags$img(height = "80%", width = "80%",src = "2014Publisherplot.png"))
+                        mainPanel(imageOutput("pub"))
                       )
 
                       ),
@@ -206,9 +206,19 @@ ui <- fluidPage(
 
 server <- function(input, output) {
 
-  output$chart <- renderImage({
-    tags$img(height = 100, width = 100,src = "2013Publisherplot.png")
-  })
+  output$pub <- renderImage({
+
+    # When input$n is 3, filename is ./images/image3.jpeg
+    filename <- normalizePath(file.path('www',
+                                        paste(input$year, 'Publisherplot.png', sep='')))
+
+    # Return a list containing the filename and alt text
+    list(src = filename,
+         alt = paste("Image number", input$year))
+
+
+
+  }, deleteFile = FALSE)
 
 
 
