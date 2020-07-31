@@ -70,6 +70,20 @@ ui <- fluidPage(
 
                       ),
 
+             tabPanel("Companies", style = "margn20px",
+                      h5("Top Companies per Year"),
+                      sidebarLayout(
+                        sidebarPanel(
+                          selectInput("year2", "Year", choices = c(2013, 2014, 2015, 2016, 2017, 2018))
+                        ),
+                        mainPanel(
+                          imageOutput("comp")
+                        )
+                      )
+
+
+                      ),
+
              tabPanel("Profiles", style = "margin:60px",
                       h5("Profiling", align = "center"),
                       p(style = "margin-top:25px","Profiling is essential for ensuring the contents of datasets align with the projects overall goal and resources. The first goal of the Business Innovation project is to obtain a general understanding of what companies are the ones producing recent innovation. Therefore, we profiled the DNA data to include only unique, complete and valid entries.  We defined a valid entry, as an article that was published after 2010, had more than 100 but less than 10,000 characters and had a company code that was in the company codes dictionary. The year restriction will allow us to only consider recent innovations, the character restriction will allow our computing resources to fully analyze the text and the company code restriction will ensure that we have the full name of the company which will provide better insights on the companies completing innovation. " ),
@@ -214,6 +228,20 @@ server <- function(input, output) {
     # When input$n is 3, filename is ./images/image3.jpeg
     filename <- normalizePath(file.path('www',
                                         paste(input$year, 'Publisherplot.png', sep='')))
+
+    # Return a list containing the filename and alt text
+    list(src = filename,
+         alt = paste("Image number", input$year))
+
+
+
+  }, deleteFile = FALSE)
+
+  output$comp <- renderImage({
+
+    # When input$n is 3, filename is ./images/image3.jpeg
+    filename <- normalizePath(file.path('www',
+                                        paste(input$year2, 'Companyplot.png', sep='')))
 
     # Return a list containing the filename and alt text
     list(src = filename,
