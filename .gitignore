@@ -2,3 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
+src/.ipynb_checkpoints/
+src/Profiling/.ipynb_checkpoints/
+src/Matching/.ipynb_checkpoints/
+src/Cleaning/.ipynb_checkpoints/
+src/BERT/.ipynb_checkpoints/
