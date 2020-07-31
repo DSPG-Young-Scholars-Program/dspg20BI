@@ -4,13 +4,9 @@ library(ggplot2)
 library(data.table)
 library(rsconnect)
 
-
-#to do 7/28
-  #remove and rename column names in results tab
-  #get all the charts needed for this app
-  #Try to add a chart and images to app
-  #Begin filling out methods portion
-  #Work on about section, detailing the project and the problem we are trying to solve
+#to do 7/31
+#Take out matching within tab
+#Add interactive charts for top articles
 
 
 
