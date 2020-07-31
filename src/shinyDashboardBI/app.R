@@ -209,7 +209,10 @@ ui <- fluidPage(
 
 
                         ),
-                        tabPanel("Network Analysis")
+                        tabPanel("Network Analysis",
+                                 tags$img(height = "50%", width = "80%", src = "unfilteredInnovationNetwork.png")
+
+                                 )
 
                         )#end results tab
 
