@@ -54,39 +54,44 @@ patt2 <-paste0("\\b", top20_entities_remove, "\\b", collapse = "|")
 
 ###############
 
-potential_clean_names <- ndc_orig_ct %>% 
-  filter(year > 2012 & year <2018) %>% 
-  # tail(10) %>%
-  # filter(str_detect(ndc_comp, "\\s+[a-zA-Z]\\s+")) %>%
-  # filter(str_detect(ndc_comp, "^b\\s+"))
-  # filter(str_detect(ndc_comp, "\\s-\\s+")) %>%
-  # filter(str_detect(ndc_comp, "_")) %>%
-  mutate(corp_low = str_to_lower(ndc_comp), 
-         corp_parenth = str_remove(corp_low, pattern = "\\([^)]*\\)"), 
-         corp_punct = str_remove_all(corp_parenth, pattern = "[!\"#\'\\(\\)\\*\\+,\\.\\/\\:;%<=>\\?@\\[\\]\\^`\\{\\|\\}~]"),
-         corp_num = str_remove_all(corp_punct, pattern = "[0-9+]"),
-         corp_1char = str_remove_all(corp_num, pattern = "\\s+[a-zA-Z]\\s+"), 
-         corp_mult_sp = str_replace_all(corp_1char, pattern = "\\s+", replacement = " "), 
-         #corp_pref_b = str_remove(corp_1char, pattern = "^b\\s+")
-         corp_dashes = str_replace_all(corp_mult_sp, pattern = "\\s-\\s+", replacement = "-"),
-         corp_amps = str_replace_all(corp_dashes, pattern = "\\s&\\s+", replacement = "&"), 
-         corp_under = str_replace_all(corp_amps, pattern = "\\s_\\s+", replacement = "_"),
-         potential_fam = str_remove_all(corp_under, patt), 
-         potential_fam2 = str_remove_all(potential_fam, patt2),
-         # potential_fam2 = str_remove_all(potential_fam2, patt2),
-         potential_fam3 = str_squish(potential_fam2)
-         ) %>%
-  select(year, ndc_comp, n, potential_fam, potential_fam2, potential_fam3)
+# potential_clean_names <- ndc_orig_ct %>% 
+#   filter(year > 2012 & year <2018) %>% 
+#   # tail(10) %>%
+#   # filter(str_detect(ndc_comp, "\\s+[a-zA-Z]\\s+")) %>%
+#   # filter(str_detect(ndc_comp, "^b\\s+"))
+#   # filter(str_detect(ndc_comp, "\\s-\\s+")) %>%
+#   # filter(str_detect(ndc_comp, "_")) %>%
+#   mutate(corp_low = str_to_lower(ndc_comp), 
+#          corp_parenth = str_remove(corp_low, pattern = "\\([^)]*\\)"), 
+#          corp_punct = str_remove_all(corp_parenth, pattern = "[!\"#\'\\(\\)\\*\\+,\\.\\/\\:;%<=>\\?@\\[\\]\\^`\\{\\|\\}~]"),
+#          corp_num = str_remove_all(corp_punct, pattern = "[0-9+]"),
+#          corp_1char = str_remove_all(corp_num, pattern = "\\s+[a-zA-Z]\\s+"), 
+#          corp_mult_sp = str_replace_all(corp_1char, pattern = "\\s+", replacement = " "), 
+#          #corp_pref_b = str_remove(corp_1char, pattern = "^b\\s+")
+#          corp_dashes = str_replace_all(corp_mult_sp, pattern = "\\s-\\s+", replacement = "-"),
+#          corp_amps = str_replace_all(corp_dashes, pattern = "\\s&\\s+", replacement = "&"), 
+#          corp_under = str_replace_all(corp_amps, pattern = "\\s_\\s+", replacement = "_"),
+#          potential_fam = str_remove_all(corp_under, patt), 
+#          potential_fam2 = str_remove_all(potential_fam, patt2),
+#          # potential_fam2 = str_remove_all(potential_fam2, patt2),
+#          potential_fam3 = str_squish(potential_fam2)
+#          ) %>%
+#   select(year, ndc_comp, n, potential_fam, potential_fam2, potential_fam3)
+
+NDC_clean <- read.csv("data/working/ndc_clean.csv")
+
+ndc_orig_ct_CORPFAM <- ndc_orig_ct %>% 
+  filter(year > 2012 & year < 2018) %>%
+  left_join(NDC_clean, by = c("ndc_comp" = "original_company"))
 
 
-
-ndc_summary_table <- potential_clean_names %>% 
-  group_by(potential_fam3, year) %>% 
+ndc_summary_table <- ndc_orig_ct_CORPFAM %>% 
+  group_by(cleaned_name, year) %>% 
   summarise(listings =sum(n)) %>% 
-  filter(potential_fam3 != "") %>% 
+  filter(cleaned_name != "") %>% 
   as.data.frame()
 
-table(ndc_summary_table$potential_fam)
+table(ndc_summary_table$cleaned_name)
 
 ########################
 
@@ -95,7 +100,7 @@ ndc_dna_matching %>% head()
 
 ndc_potential_corpfam_listings <- ndc_dna_matching %>% #select(clean.NDC.company, corporate.family, original.NDC.company) %>% head()
   # select(corporate.family) %>%
-  left_join(ndc_summary_table , by = c("corporate.family" = "potential_fam3")) %>%  # 1756 rows
+  left_join(ndc_summary_table , by = c("corporate.family" = "cleaned_name")) %>%  # 1756 rows
   filter(!is.na(year))
 
 ndc_potential_corpfam_listings$num_ndc_listings <- ndc_potential_corpfam_listings$n
@@ -117,22 +122,20 @@ ndc_yr_totals <- ndc_orig_ct %>%
 
 ndc_potential_corpfam_listings <- ndc_potential_corpfam_listings %>% 
   left_join(ndc_yr_totals, by = c("year")) %>% 
-  mutate(perc_ndc = scales::percent(listings/total_listings))
+  mutate(perc_ndc = listings/total_listings,
+         perc_ndc_ = scales::percent(listings/total_listings))
 
 hist(ndc_potential_corpfam_listings$listings/ndc_potential_corpfam_listings$total_listings)
 ndc_potential_corpfam_listings %>% arrange(desc(perc_ndc)) %>% head(20) %>% select(corporate.family, year, perc_ndc)
 ndc_potential_corpfam_listings %>% arrange(desc(perc_ndc)) %>% head()
 
-# should i use this to double check corporate family? 
-NDC_clean <- read.csv("data/working/ndc_clean.csv")
-NDC_clean %>% head()
 
 ########################
 
 # DNA_comp_freq <- read.csv("data/working/companyfrequencyandname.csv")
 # DNA_comp_freq %>% head()
 # 
-# DNA_clean <- read.csv("data/working/dna_clean.csv")
+DNA_clean <- read.csv("data/working/dna_clean.csv")
 # DNA_clean %>% head()
 # 
 
@@ -236,9 +239,27 @@ DNA_yearly_totals <- data.frame(year = c(2013:2017), total_articles = c(DNA_tota
 
 ndc_potential_corpfam_listings$year <- as.numeric(ndc_potential_corpfam_listings$year)
 
-ndc_potential_corpfam_scatter  <- ndc_potential_corpfam_listings %>% arrange(desc(perc_ndc)) %>% 
+ndc_corpfam_scatter  <- ndc_potential_corpfam_listings %>% arrange(desc(perc_ndc)) %>% 
   left_join(DNA_comp_freq_allyears_join, by = c("year", "corporate.family" = "corporatefamily"))  %>%
   left_join(DNA_yearly_totals, by = "year") %>%
-  mutate(perc_dna = scales::percent(articles/total_articles))
+  mutate(articles = tidyr::replace_na(articles, replace = 0)) %>%
+  mutate(perc_dna = articles/total_articles, 
+         perc_dna_ = scales::percent(articles/total_articles)) 
   
-ndc_potential_corpfam_scatter %>% head()
+ndc_corpfam_scatter %>% head()
+
+# saveRDS(ndc_corpfam_scatter, "~/git/dspg20BI/data/working/ndc_dna_corpfam_scatter.RDS")
+# write.csv(ndc_corpfam_scatter, "~/git/dspg20BI/data/working/ndc_dna_corpfam_scatter.csv")
+
+ndc_corpfam_scatter <- readRDS("~/git/dspg20BI/data/working/ndc_dna_corpfam_scatter.RDS")
+
+library(ggplot2)
+ggplot(data = ndc_corpfam_scatter, aes(x = perc_ndc, y = perc_dna)) + 
+  geom_point(stat = "identity") +
+  facet_grid(~year)
+
+
+
+
+
+
