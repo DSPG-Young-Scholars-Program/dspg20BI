@@ -135,7 +135,6 @@ ui <- fluidPage(
                       br(),
                       br(),
                       br(),
-                      br(),
 
                       sidebarLayout(
                         sidebarPanel(selectInput("year2", "Year", choices = c(2013, 2014, 2015, 2016, 2017, 2018)),
@@ -193,11 +192,24 @@ ui <- fluidPage(
                                  fluidRow(
                                    br(),
                                    br(),
-                                   column(5, wellPanel(p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis laoreet sem, et volutpat sapien. Praesent sit amet mattis dolor. Vivamus venenatis at velit a fermentum. Pellentesque consequat augue vitae lorem efficitur, eu pharetra nisl imperdiet. Integer lobortis elit vel diam tincidunt bibendum. Nullam in risus sit amet massa gravida consequat nec a dui. Fusce vestibulum libero tristique nulla placerat, id tincidunt elit hendrerit.
-                                          Aenean non ipsum varius sem porttitor lacinia. Sed mollis sem in ex facilisis condimentum. Quisque blandit quam ut porttitor pretium. Nulla nec varius lectus."))
+                                   column(5,
+                                          h4("Undirected Coapperance Network of Companies in Innovative Articles"),
+                                          hr(),
+                                          br(),
+                                          br(),
+                                          br(),
+                                          br(),
+                                          br(),
+                                          br(),
+                                          wellPanel(p("To the right is an undirected network of company co-mentions in articles labeled as having to do with innovation, where each node represents
+                                                      one distinct company, and each edge (i.e the line connecting one node to another) represents a co-mention between two companies. Knowing that our subset of
+                                                      articles used here each have to do with innovation, we can begin to see which companies are mentioned together in these articles, as well as see which distinct corporate
+                                                      entities occur more frequently with others companies (The more degrees a node has, the more connected it is to the network, and therefore appearing more often with other companies
+                                                      in innovation-related articles. For illustrative purposes, only co-mentions between companies that occur at least 125 times are shown. This means that connections between
+                                                      these nods represent co-mentions of two distinct companies that occured 125 times or more in the innovation-labeled articles."))
                                    ),
                                    column(7,
-                                          tags$img(height = "20%", width = "100%", src = "companiesInInnovationByWeightandBetweeness.png")
+                                          tags$img(height = "20%", width = "100%", src = "dashboardNetwork1.png")
 
 
                                  )
