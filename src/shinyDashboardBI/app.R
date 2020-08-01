@@ -59,14 +59,21 @@ ui <- fluidPage(
 
              tabPanel("Profiling the DNA Data", style = "margin:20px",
                       h5("Profiling", align = "center"),
-                      p(style = "margin-top:25px","Profiling is essential for ensuring the contents of datasets align with the projects overall goal and resources. The first goal of the Business Innovation project is to obtain a general understanding of what companies are the ones producing recent innovation. Therefore, we profiled the DNA data to include only unique, complete and valid entries.  We defined a valid entry, as an article that was published after 2010, had more than 100 but less than 10,000 characters and had a company code that was in the company codes dictionary. The year restriction will allow us to only consider recent innovations, the character restriction will allow our computing resources to fully analyze the text and the company code restriction will ensure that we have the full name of the company which will provide better insights on the companies completing innovation. " ),
+                      p(style = "margin-top:25px","Our first task was to profile the DNA data in order to get a better understanding of both its quality and fitness for use. We looked primarily at metrics like data completeness,
+                      uniqueness, and validity for select columns we felt were important. Completeness is simply a percentage of how complete the data was. Uniqueness can be defined as the number of distinct entries for each of the variables.
+                      We defined a valid entry in all the company-related variables as valid if and only if it appeared in both the DNA articles and the accompanied DNA data dictionary.For instance, the company_codes column contains company codes for all
+                      companies mentioned in a particular article. Obtaining these company codes and getting the unique count revealed a total of 73,688 total companies mentioned in these 1.9 million articles. However, only 64,005, or about 86.9% of these companies, were found
+                      in the DNA code dictionary. Valid publication dates for these articles were defined
+                      as simply being past 2010, as we were mainly concerned with articles published within the last decade. Finally, valid word counts for these articles needed to be greater than 100 but less than 10,000."),
+
+                      p("The results for our profiling can be seen below"),
                       br(),
-                      p("Originally, the dataset contained 1,942,855 data entries. Given a restriction on memory and running power, we decided to only have unique and complete entries as it diminished the dataset by 96.2% to 73, 688 entries, while still fulfilling our main goal of understanding what companies are producing innovation. The visualization [above/below] demonstrates the total percentage of data entries that passed our validity checks.  About 78.3% of the total unique entries passed the validity check, 100% of the entries were published after 2010, and 91.7% of the entries contained valid company codes.  "),
+
                       sidebarLayout(
                         sidebarPanel(
                           width = 6,
                           selectInput("selectTable", "Select", choices = c("Completeness and Uniqueness", "Validity")),
-                          h4("Definitions: ", style = "margin-top:50px"),
+                          h4("Definitions: ", style = "margin-top:30px"),
                           helpText("Note: All definitions are provided by Dow Jones Developer Platform"),
                           tags$ul(
                             tags$li("an - Accession Number (Unique id)"),
@@ -148,7 +155,7 @@ ui <- fluidPage(
              #end profiling tab------------------------------------------
 
 
-             navbarMenu("Data Sources and Methods",
+             navbarMenu("Methods",
                         tabPanel(
                           "Data Sources",
                           h3("Data Sources", align = "center", style = "margin-bottom: 50px"),
@@ -204,11 +211,6 @@ ui <- fluidPage(
 
 
              navbarMenu("Results",
-                        tabPanel("Within Data Matching",
-                                 selectInput("within", "Select", choice = c("NDCxNDC", "FDAxFDA", "DNAxDNA")),
-                                 dataTableOutput("withinData")
-                        ),
-
 
                         tabPanel("Across Data Matching",
                                  selectInput("across", "Select", choices = c("FDAxNDC", "FDAxDNA", "DNAxNDC")),
@@ -222,7 +224,34 @@ ui <- fluidPage(
 
                                  )
 
-                        )#end results tab
+                        ),
+
+            tabPanel("Data Sources",
+                     h3("Data Sources", align = "center", style = "margin-bottom: 50px"),
+                     style = "margin-left: 120px;",
+                     style = "margin-top: 30px;",
+                     style = "margin-right: 120px;",
+                     fluidRow(
+                       column(3, tags$img(height = "100%", width = "100%",src = "dnalogo.png")),
+                       column(6, wellPanel(p(style = "font-size:15px","The Dow Jones DNA platform collects information from Dow Jones publication with premium and licensed third party sources. This proprietary data platform contains 1.3bn articles each labeled with unique DNA taxonomies tags including word count, source name, and company code. More information on all the included data tags can be found on the DNA website. This dataset served as the primary resource for alternative text sources and will inspire the machine learning algorithms that will predict innovation. "))),
+                     ),
+                     hr(),
+                     fluidRow(style = "margin-top:100px",
+                              column(3, tags$img(height = "100%", width = "100%", src = "fdalogo.png")),
+                              column(7, wellPanel(
+                                tags$b("Approvals"),
+                                p(style = "font-size:15px", "FDA drug approvals dataset generated and reviewed by FDA and includes information regarding. ",
+                                  br(),
+                                  br(),
+                                  tags$b("National Drug Code"),
+                                  p(style = "font-size:15px", "The National Drug Code (NDC) Directory is a publicly available source provided by the FDA that contains a list of all current drugs manufactured, prepared, propagated, compounded, or processed for commercial distribution. The data content is manually inputted by the companies producing the drugs as required per the Drug Listing Act of 1972. The FDA assigns the NDC – a unique three-digit number, to the drug products. The administration then updates the NDC directory daily with the NDC along with the rest of the information provided. We gathered content from this dataset on [enter date here]. This data was used to cross-validate the companies that we had previously identified as producing an innovation. ")
+                                )))
+                     )
+
+
+                     )
+
+
 
 
       ) #end navbarPage
