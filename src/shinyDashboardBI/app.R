@@ -56,28 +56,41 @@ ui <- fluidPage(
              navbarMenu("Profiling",
 
              tabPanel("Publishers", style = "margin:20px",
-                      h5("Visuals"),
+                      h5("Top Publishers By Year"),
                       br(),
                       br(),
                       br(),
                       sidebarLayout(
                         sidebarPanel(
-                          h4("Top Publishers"),
                           selectInput("year", "Year", choices = c(2013, 2014,2015,2016,2017,2018))),
                         mainPanel(
                           imageOutput("pub"))
+                      ),
+
+                      br(),
+                      br(),
+                      br(),
+                      br(),
+
+                      sidebarLayout(
+                        sidebarPanel(selectInput("year2", "Year", choices = c(2013, 2014, 2015, 2016, 2017, 2018))),
+                        mainPanel(imageOutput("comp"))
                       )
 
                       ),
 
-             tabPanel("Companies", style = "margn20px",
+             tabPanel("Companies", style = "margin:20px",
                       h5("Top Companies per Year"),
+                      br(),
+                      br(),
+                      br(),
                       sidebarLayout(
                         sidebarPanel(
                           selectInput("year2", "Year", choices = c(2013, 2014, 2015, 2016, 2017, 2018))
                         ),
                         mainPanel(
-                          imageOutput("comp")
+                          #imageOutput("comp")
+                          print("Test")
                         )
                       )
 
