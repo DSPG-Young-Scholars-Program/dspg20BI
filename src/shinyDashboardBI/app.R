@@ -35,14 +35,16 @@ ui <- fluidPage(
                         to work together on projects that address state, federal, and local government challenges around critical social issues relevant in the world today.
                         DSPG young scholars conduct research at the intersection of statistics, computation, and the social sciences to determine how information
                         generated within every community can be leveraged to improve quality of life and inform public policy. ", style = "color:#232D4B"),
-                      h5("DSPG20BI Summer Project"),
-                      p("The DSPG20BI team is one of x number of teams within the larger DSPG program tasked with looking into detecting product innovation within non-traditional data sources.
-                        Our goal is to find instances of product innovation within the pharmaceutical industry thorugh niche natural-language processessing techniques in an attempt
-                        to supplement the current measure of innovation", tags$a(href = "https://www.nsf.gov/statistics/srvyindustry/about/brdis/", "the Business R&D and Innovation Survey (BRDIS)"),"conducted by The National Science Foundation."),
+                      h5("DSPG20BI Project"),
+                      p("Currently, the National Science for Engineering and Statistics collects data related to innovation in their annual survey called
+                         ",tags$a(href = "https://www.nsf.gov/statistics/srvyindustry/about/brdis/", "the Business R&D and Innovation Survey (BRDIS)"),". Adopting the OSLO Manual 2018’s definition of innovation, which defines an innovative product as being new or improved and available on the market,
+                         the survey ultimately aims to capture the state of innovation in the U.S. However, additional methods of measuring innovation can help provide further indication as to the nation’s degree of innovation.
+                         Partnering with NCSES, SDAD aims to see if non-traditional data-sources can help supplement BRDIS and aid in measuring innovation."),
 
-                      p("During the 10-week DSPG program, the Business Innovation team focused on developing functions that used NLP techniques to match strings across datasets.
-                        These functions were written particularly focused on datasets mentioning innovation amongst pharmaceutical companies. However, the functions can be applied to any dataset containing strings.
-                        The goal of this task it to provide future insights on the companies doing innovation as it pertains to the OLSO manual definition"),
+                      p("During the 10-week DSPG internship program, the Business Innovation team focused on developing functions to clean company names across three different data sets, which includes FDA Drug Approvals, the National Drug Code Directory (NDC),
+                         and 2 million articles from the Dow Jones News and Analytics Platform (DNA). These clean corporate family names would then be matched across our three datasets to see if there existed any intersections.
+                         Knowing which corporate families occur in all datasets indicates which companies are A) Being talked about in articles relating to the pharmaceutical industry, B) Which companies have filed with FDA, and C) Which drugs are currently listed in the NDC.
+                         Having a common denominator can allow for joining the data to perform explaratory data analysis and natural language processessing in future work."),
 
                       h5("Our Team"),
                       p("SDAD: Devika Mahoney-Nair, Gizem Korkmaz, & Neil Alexander"),
@@ -53,9 +55,9 @@ ui <- fluidPage(
                       ),
 
 
-             navbarMenu("Overview",
+             navbarMenu("DNA Overview",
 
-             tabPanel("Profiling the DNA Data", style = "margin:40px",
+             tabPanel("Profiling the DNA Data", style = "margin:20px",
                       h5("Profiling", align = "center"),
                       p(style = "margin-top:25px","Profiling is essential for ensuring the contents of datasets align with the projects overall goal and resources. The first goal of the Business Innovation project is to obtain a general understanding of what companies are the ones producing recent innovation. Therefore, we profiled the DNA data to include only unique, complete and valid entries.  We defined a valid entry, as an article that was published after 2010, had more than 100 but less than 10,000 characters and had a company code that was in the company codes dictionary. The year restriction will allow us to only consider recent innovations, the character restriction will allow our computing resources to fully analyze the text and the company code restriction will ensure that we have the full name of the company which will provide better insights on the companies completing innovation. " ),
                       br(),
@@ -63,7 +65,7 @@ ui <- fluidPage(
                       sidebarLayout(
                         sidebarPanel(
                           width = 6,
-                          selectInput("selectTable", "Select", choices = c("Completeness, Uniqueness, Duplicates", "Validity")),
+                          selectInput("selectTable", "Select", choices = c("Completeness and Uniqueness", "Validity")),
                           h4("Definitions: ", style = "margin-top:50px"),
                           helpText("Note: All definitions are provided by Dow Jones Developer Platform"),
                           tags$ul(
@@ -132,7 +134,12 @@ ui <- fluidPage(
                       br(),
 
                       sidebarLayout(
-                        sidebarPanel(selectInput("year2", "Year", choices = c(2013, 2014, 2015, 2016, 2017, 2018))),
+                        sidebarPanel(selectInput("year2", "Year", choices = c(2013, 2014, 2015, 2016, 2017, 2018)),
+                                     p(style = "font-size: 15px", "Regulatory agenices like the US Securities and Exchange Commission and the US
+                                       Food and Drug Administration are over-represented in the DNA articles. Pharmaceutical giants like Pfizer and
+                                       Johnson and Johnson rank consistently at the top, indicating that these corporations are being talked about the most in the pharma space.
+                                       ")
+                                     ),
                         mainPanel(imageOutput("comp"))
                       )
 
@@ -272,6 +279,9 @@ server <- function(input, output) {
       profTable <- read.csv("profilingTable.csv")
 
       names(profTable)[names(profTable) == "X"] <- "Column Name"
+
+      profTable$Duplicates <- NULL
+      width = "5px"
 
       profTable
     }
