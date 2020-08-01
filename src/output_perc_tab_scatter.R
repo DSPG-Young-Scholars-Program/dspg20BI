@@ -251,15 +251,120 @@ ndc_corpfam_scatter %>% head()
 # saveRDS(ndc_corpfam_scatter, "~/git/dspg20BI/data/working/ndc_dna_corpfam_scatter.RDS")
 # write.csv(ndc_corpfam_scatter, "~/git/dspg20BI/data/working/ndc_dna_corpfam_scatter.csv")
 
+
+#############################
+
+fda_appr <- readxl::read_excel("data/original/fda_companies.xlsx", sheet = 2)
+colnames(fda_appr) <- dataplumbr::name.standard_col_names(colnames(fda_appr))
+
+fda_appr %>% head()
+colnames(fda_appr)
+fda_appr %>% filter(str_detect(company, "^TEVA"))
+
+fda_orig_ct <- fda_appr %>% count(year = stringr::str_extract(approval_date, "^\\d{4}"), 
+                                  fda_comp = company)
+fda_orig_ct %>% head
+
+###########
+
+FDA_clean <- read.csv("data/working/fda_clean.csv")
+
+fda_orig_ct_CORPFAM <- fda_orig_ct %>% 
+  filter(year > 2012 & year < 2018) %>% 
+  left_join(FDA_clean, by = c("fda_comp" = "FDA.Companies"))
+
+
+fda_summary_table <- fda_orig_ct_CORPFAM %>% 
+  group_by(Company.Clean, year) %>% 
+  summarise(approvals =sum(n)) %>% 
+  filter(Company.Clean != "") %>% 
+  as.data.frame()
+
+fda_summary_table %>% head()
+
+table(fda_summary_table$Company.Clean)
+
+########
+
+fda_dna_matching <- read.csv("data/working/fda_dna_matching.csv")
+fda_dna_matching %>% head()
+
+fda_potential_corpfam_listings <- fda_dna_matching %>% 
+  #select(clean.NDC.company, corporate.family, original.NDC.company) %>% head()
+  # select(corporate.family) %>%
+  left_join(fda_summary_table , by = c("corporate.family" = "Company.Clean")) %>%  # 1756 rows
+  filter(!is.na(year))
+
+fda_potential_corpfam_listings %>% head()
+
+##########
+
+fda_yr_totals <- fda_orig_ct %>% 
+  group_by(year) %>%
+  summarise(total_approvals = sum(n)) %>% 
+  filter(year > 2012 & year < 2018) %>% 
+  as.data.frame()
+
+fda_potential_corpfam_listings <- fda_potential_corpfam_listings %>% 
+  left_join(fda_yr_totals, by = c("year")) %>% 
+  mutate(perc_fda = approvals/total_approvals,
+         perc_fda_ = scales::percent(approvals/total_approvals))
+
+hist(fda_potential_corpfam_listings$approvals/fda_potential_corpfam_listings$total_approvals)
+fda_potential_corpfam_listings %>% arrange(desc(perc_fda)) %>% head(20) %>% select(corporate.family, year, perc_fda_)
+fda_potential_corpfam_listings %>% arrange(desc(perc_fda)) %>% head()
+
+##########
+fda_potential_corpfam_listings$year <- as.numeric(fda_potential_corpfam_listings$year)
+
+fda_corpfam_scatter  <- fda_potential_corpfam_listings %>% arrange(desc(perc_fda)) %>% 
+  left_join(DNA_comp_freq_allyears_join, by = c("year", "corporate.family" = "corporatefamily"))  %>%
+  left_join(DNA_yearly_totals, by = "year") %>%
+  mutate(articles = tidyr::replace_na(articles, replace = 0)) %>%
+  mutate(perc_dna = articles/total_articles, 
+         perc_dna_ = scales::percent(articles/total_articles)) 
+
+fda_corpfam_scatter %>% head()
+
+# saveRDS(fda_corpfam_scatter, "~/git/dspg20BI/data/working/fda_dna_corpfam_scatter.RDS")
+# write.csv(fda_corpfam_scatter, "~/git/dspg20BI/data/working/fda_dna_corpfam_scatter.csv")
+
+
+##############################
+
+
 ndc_corpfam_scatter <- readRDS("~/git/dspg20BI/data/working/ndc_dna_corpfam_scatter.RDS")
+fda_corpfam_scatter <- readRDS("~/git/dspg20BI/data/working/fda_dna_corpfam_scatter.RDS")
 
 library(ggplot2)
+
+
 ggplot(data = ndc_corpfam_scatter, aes(x = perc_ndc, y = perc_dna)) + 
   geom_point(stat = "identity") +
-  facet_grid(~year)
+  facet_grid(~year)  # + geom_smooth(method='lm')
 
+ggplot(data = fda_corpfam_scatter, aes(x = perc_fda, y = perc_dna)) + 
+  geom_point(stat = "identity") +
+  facet_grid(~year)  #+ geom_smooth(method='lm')
 
+ggplot(data = ndc_corpfam_scatter, aes(x = perc_ndc, y = perc_dna)) + 
+  geom_point(stat = "identity") +
+  facet_grid(~year) + 
+  # geom_smooth(method='lm')
+  geom_text(data = ndc_corpfam_scatter %>% filter(perc_dna > 0.01 |perc_ndc > 0.01), aes(label = corporate.family ))
 
+ggplot(data = fda_corpfam_scatter, aes(x = perc_fda, y = perc_dna)) + 
+  geom_point(stat = "identity") +
+  facet_grid(~year) + 
+  # geom_smooth(method='lm')
+  geom_text(data = fda_corpfam_scatter %>% filter(perc_dna > 0.01 |perc_fda > 0.01), aes(label = corporate.family ))
+
+fda_yn <- fda_corpfam_scatter %>% select(corporate.family) %>% distinct() %>% mutate(fda = 1)
+ndc_corpfam_scatter_fdayn <-  ndc_corpfam_scatter  %>% left_join(fda_yn, by = "corporate.family") %>% mutate(fda = as.factor(tidyr::replace_na(fda, 0)))
+
+ggplot(data = ndc_corpfam_scatter_fdayn, aes(x = perc_ndc, y = perc_dna)) + 
+  geom_point(stat = "identity", aes(color = fda)) + 
+  facet_grid(~year) 
 
 
 
