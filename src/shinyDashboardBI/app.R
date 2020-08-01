@@ -3,14 +3,7 @@ library(dplyr)
 library(ggplot2)
 library(data.table)
 library(rsconnect)
-
-#to do 7/31
-#Take out matching within tab
-#Add interactive charts for top articles
-
-
-
-
+library(DT)
 
 ui <- fluidPage(
   theme ="themes.css",
@@ -114,7 +107,7 @@ ui <- fluidPage(
                           )
 
                         ),
-                        mainPanel(width = 3, tableOutput("tables"))
+                        mainPanel(width = 6, tableOutput("tables"))
                       )),
 
 
@@ -156,26 +149,28 @@ ui <- fluidPage(
 
 
              tabPanel("Methods",
-                    h3("Methods", align = "center", style = "margin-bottom: 50px"),
+                    h3("Methods", align = "center", style = "margin-bottom: 20px"),
                     style = "margin-left: 120px;",
-                    style = "margin-top: 30px;",
+                    style = "margin-top: 20px;",
                     style = "margin-right: 120px;",
 
                       fluidRow(
-                        column(3, h4("Cleaning")),
+                        column(3, h5("Cleaning")),
                         column(6, wellPanel(p(style = "font-size:15px","In order to match company names across all three dataset we had to make all the strings similar to each other to facilitate fuzzy matching. To accomplish this we used regular expressions, the string package and pandas' package. The first step in the process was to lowercase all the strings. Then, remove punctuations except for underscores, dashes, ampersands, percent and dollar symbols. Afterwards, we removed any parenthesis along with the content within the parentheses. We then removed single characters from the beginning and removed numbers, as numbers complicate the matching process. Additionally, we removed extra spaces between words, the prefix b, and any legal entities from the company name. This provided all three data sets to have similar words in the entries that would make matching companies that may have ")))
                         ),
                         hr(),
-                        fluidRow(style = "margin-top:100px",
-                        column(3, h4("Fuzzy Matching")),
+                        fluidRow(style = "margin-top:50px",
+                        column(3, h5("Fuzzy Matching")),
                         column(6, wellPanel(p(style = "font-size:15px","To complete the fuzzy matching, we used a package by SeatGeeks called FuzzyWuzzy. FuzzyWuzzy uses the Levenshtein distance to calculate the minimum number of single character edits (insertions, deletions or substitutions) needed to change one word to another. The package contains several functions that produces a similarity ratio out of 100. The fuzz.ratio function calculates the ratio by using the basic Levenshtein distance and the equation from diff.libratio: 2*M / T, where T is the total number of characters in both strings and M is the number of matches. The fuzz.partial_ratio compares the shortest string (n) against all the n-length substrings of the larger string and returns the highest fuzz partial ratio. Therefore, if the shortest string is found within the larger string then the partial ratio will return a ratio of 100. For our purposes, we focused on a fuzz.ratio that would only produce 100 or perfect matches.  ")))
                         ),
                         hr(),
-                        fluidRow(style = "margin-top:100px",
-                            column(3, h4("Network Analysis")),
-                            column(7, h4("")))
+                        fluidRow(style = "margin-top:50px",
+                            column(3, h5("Network Analysis")),
+                            column(7, wellPanel(p(style = "font-size:15px", "We used Gephi, an open-source sofware package, to visually display a network of co-occurences between our labeled articles.
+                                                  With Gephi we can get an intricate network that shows the companies often occuring together in the same article. Nodes and edges can also be filtered by metrics like degree centraility, betweeness centrality,
+                                                  or partitioned based on clusters/communities of co-mentions.")))
 
-                        ),#end navbar
+                        )),#end navbar
 
              #end Data Sources and Methods tabs-----------------
 
@@ -183,6 +178,8 @@ ui <- fluidPage(
              navbarMenu("Results",
 
                         tabPanel("Across Data Matching",
+                                 h5("Across Data Matching"),
+                                 hr(),
                                  selectInput("across", "Select", choices = c("FDAxNDC", "FDAxDNA", "DNAxNDC")),
                                  dataTableOutput("AcrossData")
 
@@ -274,6 +271,7 @@ server <- function(input, output) {
       valid <- read.csv("validitytable.csv")
       names(valid)[names(valid) == "X"] <- "Column Name"
 
+
       valid
     }else{
       profTable <- read.csv("profilingTable.csv")
@@ -281,7 +279,8 @@ server <- function(input, output) {
       names(profTable)[names(profTable) == "X"] <- "Column Name"
 
       profTable$Duplicates <- NULL
-      width = "5px"
+
+
 
       profTable
     }
