@@ -55,8 +55,10 @@ ui <- fluidPage(
              tabPanel("Profiling the DNA Data", style = "margin:20px",
                       h5("Profiling", align = "center"),
                       p(style = "margin-top:25px","Our first task was to profile the DNA data in order to get a better understanding of both its quality and fitness for use. We looked primarily at metrics like data completeness,
-                      uniqueness, and validity for select columns we felt were important. Completeness is simply a percentage of how complete the data was. Uniqueness can be defined as the number of distinct entries for each of the variables.
-                      We defined a valid entry in all the company-related variables as valid if and only if it appeared in both the DNA articles and the accompanied DNA data dictionary.For instance, the company_codes column contains company codes for all
+                      uniqueness, and validity for select columns we felt were important. Completeness is simply a percentage of how complete the data was. Uniqueness can be defined as the number of distinct entries for each of the variables. While our
+                      criteria for what counted as valid changed depending on the variable, the general definition of what it means to be valid remains consistent -- a value that is legitimate and makes sense given the context of the variable being looked at.
+                      Each company-related variable (i.e company_codes, company_codes_about, etc) was a comma seperated list of codes, with each code representing a company mentioned in their respective articles.
+                      When defining a valid entry in all these company-related columns, we defined a code as valid if and only if the code appearned in both the DNA articles and the accompanying DNA data dictionary. For instance, the company_codes column contains company codes for all
                       companies mentioned in a particular article. Obtaining these company codes and getting the unique count revealed a total of 73,688 total companies mentioned in these 1.9 million articles. However, only 64,005, or about 86.9% of these companies, were found
                       in the DNA code dictionary. Valid publication dates for these articles were defined
                       as simply being past 2010, as we were mainly concerned with articles published within the last decade. Finally, valid word counts for these articles needed to be greater than 100 but less than 10,000."),
@@ -189,9 +191,24 @@ ui <- fluidPage(
 
                         ),
                         tabPanel("Network Analysis",
-                                 tags$img(height = "50%", width = "80%", src = "unfilteredInnovationNetwork.png")
+                                 h5("Network Analysis Using Gephi"),
+                                 fluidRow(
+                                   br(),
+                                   br(),
+                                   column(5, wellPanel(p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis laoreet sem, et volutpat sapien. Praesent sit amet mattis dolor. Vivamus venenatis at velit a fermentum. Pellentesque consequat augue vitae lorem efficitur, eu pharetra nisl imperdiet. Integer lobortis elit vel diam tincidunt bibendum. Nullam in risus sit amet massa gravida consequat nec a dui. Fusce vestibulum libero tristique nulla placerat, id tincidunt elit hendrerit.
+                                          Aenean non ipsum varius sem porttitor lacinia. Sed mollis sem in ex facilisis condimentum. Quisque blandit quam ut porttitor pretium. Nulla nec varius lectus."))
+                                   ),
+                                   column(7,
+                                          tags$img(height = "20%", width = "100%", src = "companiesInInnovationByWeightandBetweeness.png")
+
 
                                  )
+                                 )
+
+
+                                 ),
+
+                        tabPanel("Scatterplots")
 
                         ),
 
