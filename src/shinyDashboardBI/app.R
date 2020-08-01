@@ -155,57 +155,27 @@ ui <- fluidPage(
              #end profiling tab------------------------------------------
 
 
-             navbarMenu("Methods",
-                        tabPanel(
-                          "Data Sources",
-                          h3("Data Sources", align = "center", style = "margin-bottom: 50px"),
-                          style = "margin-left: 120px;",
-                          style = "margin-top: 30px;",
-                          style = "margin-right: 120px;",
-                          fluidRow(
-                            column(3, tags$img(height = "100%", width = "100%",src = "dnalogo.png")),
-                            column(6, wellPanel(p(style = "font-size:15px","The Dow Jones DNA platform collects information from Dow Jones publication with premium and licensed third party sources. This proprietary data platform contains 1.3bn articles each labeled with unique DNA taxonomies tags including word count, source name, and company code. More information on all the included data tags can be found on the DNA website. This dataset served as the primary resource for alternative text sources and will inspire the machine learning algorithms that will predict innovation. "))),
-                            ),
-                          hr(),
-                          fluidRow(style = "margin-top:100px",
-                                   column(3, tags$img(height = "100%", width = "100%", src = "fdalogo.png")),
-                                   column(7, wellPanel(
-                                     tags$b("Approvals"),
-                                     p(style = "font-size:15px", "FDA drug approvals dataset generated and reviewed by FDA and includes information regarding. ",
-                                     br(),
-                                     br(),
-                                     tags$b("National Drug Code"),
-                                     p(style = "font-size:15px", "The National Drug Code (NDC) Directory is a publicly available source provided by the FDA that contains a list of all current drugs manufactured, prepared, propagated, compounded, or processed for commercial distribution. The data content is manually inputted by the companies producing the drugs as required per the Drug Listing Act of 1972. The FDA assigns the NDC – a unique three-digit number, to the drug products. The administration then updates the NDC directory daily with the NDC along with the rest of the information provided. We gathered content from this dataset on [enter date here]. This data was used to cross-validate the companies that we had previously identified as producing an innovation. ")
-                                    )))
-                          ),
+             tabPanel("Methods",
+                    h3("Methods", align = "center", style = "margin-bottom: 50px"),
+                    style = "margin-left: 120px;",
+                    style = "margin-top: 30px;",
+                    style = "margin-right: 120px;",
 
+                      fluidRow(
+                        column(3, h4("Cleaning")),
+                        column(6, wellPanel(p(style = "font-size:15px","In order to match company names across all three dataset we had to make all the strings similar to each other to facilitate fuzzy matching. To accomplish this we used regular expressions, the string package and pandas' package. The first step in the process was to lowercase all the strings. Then, remove punctuations except for underscores, dashes, ampersands, percent and dollar symbols. Afterwards, we removed any parenthesis along with the content within the parentheses. We then removed single characters from the beginning and removed numbers, as numbers complicate the matching process. Additionally, we removed extra spaces between words, the prefix b, and any legal entities from the company name. This provided all three data sets to have similar words in the entries that would make matching companies that may have ")))
                         ),
+                        hr(),
+                        fluidRow(style = "margin-top:100px",
+                        column(3, h4("Fuzzy Matching")),
+                        column(6, wellPanel(p(style = "font-size:15px","To complete the fuzzy matching, we used a package by SeatGeeks called FuzzyWuzzy. FuzzyWuzzy uses the Levenshtein distance to calculate the minimum number of single character edits (insertions, deletions or substitutions) needed to change one word to another. The package contains several functions that produces a similarity ratio out of 100. The fuzz.ratio function calculates the ratio by using the basic Levenshtein distance and the equation from diff.libratio: 2*M / T, where T is the total number of characters in both strings and M is the number of matches. The fuzz.partial_ratio compares the shortest string (n) against all the n-length substrings of the larger string and returns the highest fuzz partial ratio. Therefore, if the shortest string is found within the larger string then the partial ratio will return a ratio of 100. For our purposes, we focused on a fuzz.ratio that would only produce 100 or perfect matches.  ")))
+                        ),
+                        hr(),
+                        fluidRow(style = "margin-top:100px",
+                            column(3, h4("Network Analysis")),
+                            column(7, h4("")))
 
-
-                        tabPanel("Methods",
-                                 h3("Methods", align = "center", style = "margin-bottom: 50px"),
-                                 style = "margin-left: 120px;",
-                                 style = "margin-top: 30px;",
-                                 style = "margin-right: 120px;",
-
-                                   fluidRow(
-                                     column(3, h4("Cleaning")),
-                                     column(6, wellPanel(p(style = "font-size:15px","In order to match company names across all three dataset we had to make all the strings similar to each other to facilitate fuzzy matching. To accomplish this we used regular expressions, the string package and pandas' package. The first step in the process was to lowercase all the strings. Then, remove punctuations except for underscores, dashes, ampersands, percent and dollar symbols. Afterwards, we removed any parenthesis along with the content within the parentheses. We then removed single characters from the beginning and removed numbers, as numbers complicate the matching process. Additionally, we removed extra spaces between words, the prefix b, and any legal entities from the company name. This provided all three data sets to have similar words in the entries that would make matching companies that may have ")))
-                                   ),
-                                   hr(),
-                                   fluidRow(style = "margin-top:100px",
-                                            column(3, h4("Fuzzy Matching")),
-                                            column(6, wellPanel(p(style = "font-size:15px","To complete the fuzzy matching, we used a package by SeatGeeks called FuzzyWuzzy. FuzzyWuzzy uses the Levenshtein distance to calculate the minimum number of single character edits (insertions, deletions or substitutions) needed to change one word to another. The package contains several functions that produces a similarity ratio out of 100. The fuzz.ratio function calculates the ratio by using the basic Levenshtein distance and the equation from diff.libratio: 2*M / T, where T is the total number of characters in both strings and M is the number of matches. The fuzz.partial_ratio compares the shortest string (n) against all the n-length substrings of the larger string and returns the highest fuzz partial ratio. Therefore, if the shortest string is found within the larger string then the partial ratio will return a ratio of 100. For our purposes, we focused on a fuzz.ratio that would only produce 100 or perfect matches.  ")))
-                                   ),
-                                   hr(),
-                                   fluidRow(style = "margin-top:100px",
-                                            column(3, h4("Network Analysis")),
-                                            column(7, h4("")))
-
-
-
-
-                        )),#end navbar
+                        ),#end navbar
 
              #end Data Sources and Methods tabs-----------------
 
