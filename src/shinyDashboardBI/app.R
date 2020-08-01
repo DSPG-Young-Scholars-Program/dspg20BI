@@ -144,7 +144,7 @@ ui <- fluidPage(
                         sidebarPanel(selectInput("year2", "Year", choices = c(2013, 2014, 2015, 2016, 2017, 2018)),
                                      p(style = "font-size: 15px", "Regulatory agenices like the US Securities and Exchange Commission and the US
                                        Food and Drug Administration are over-represented in the DNA articles. Pharmaceutical giants like Pfizer and
-                                       Johnson and Johnson rank consistently at the top, indicating that these corporations are being talked about the most in the pharma space.
+                                       Johnson and Johnson rank consistently at the top, indicating that these corporations are some of the most talked about in the pharma space.
                                        ")
                                      ),
                         mainPanel(imageOutput("comp"))
@@ -203,18 +203,19 @@ ui <- fluidPage(
                      style = "margin-right: 120px;",
                      fluidRow(
                        column(3, tags$img(height = "100%", width = "100%",src = "dnalogo.png")),
-                       column(6, wellPanel(p(style = "font-size:15px","The Dow Jones DNA platform collects information from Dow Jones publication with premium and licensed third party sources. This proprietary data platform contains 1.3bn articles each labeled with unique DNA taxonomies tags including word count, source name, and company code. More information on all the included data tags can be found on the DNA website. This dataset served as the primary resource for alternative text sources and will inspire the machine learning algorithms that will predict innovation. "))),
+                       column(8, wellPanel(
+                         tags$b("Dow Jones News and Analytics"),
+                         p(style = "font-size:15px","The Dow Jones DNA platform collects information from Dow Jones publication with premium and licensed third party sources. This proprietary data platform contains 1.3bn articles each labeled with unique DNA taxonomies tags including word count, source name, and company code. More information on all the included data tags can be found on the DNA website. This dataset served as the primary resource for alternative text sources and will inspire the machine learning algorithms that will predict innovation. "))),
                      ),
-                     hr(),
-                     fluidRow(style = "margin-top:100px",
+                     fluidRow(style = "margin-top:90px",
                               column(3, tags$img(height = "100%", width = "100%", src = "fdalogo.png")),
-                              column(7, wellPanel(
-                                tags$b("Approvals"),
-                                p(style = "font-size:15px", "FDA drug approvals dataset generated and reviewed by FDA and includes information regarding. ",
+                              column(8, wellPanel(
+                                tags$b("FDA Approval Listings"),
+                                p(style = "font-size:15px", "FDA drug approvals dataset generated and reviewed by FDA and includes information regarding Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim vitae diam a convallis. Suspendisse nisi erat, aliquet et fringilla non, feugiat et justo. Nam felis nisl, cursus sed enim ac, posuere gravida ex. Cras maximus lacus pharetra arcu pretium pellentesque. Morbi maximus elit ut elementum auctor.",
                                   br(),
                                   br(),
-                                  tags$b("National Drug Code"),
-                                  p(style = "font-size:15px", "The National Drug Code (NDC) Directory is a publicly available source provided by the FDA that contains a list of all current drugs manufactured, prepared, propagated, compounded, or processed for commercial distribution. The data content is manually inputted by the companies producing the drugs as required per the Drug Listing Act of 1972. The FDA assigns the NDC – a unique three-digit number, to the drug products. The administration then updates the NDC directory daily with the NDC along with the rest of the information provided. We gathered content from this dataset on [enter date here]. This data was used to cross-validate the companies that we had previously identified as producing an innovation. ")
+                                tags$b("National Drug Code Directory"),
+                                p(style = "font-size:15px", "The National Drug Code (NDC) Directory is a publicly available source provided by the FDA that contains a list of all current drugs manufactured, prepared, propagated, compounded, or processed for commercial distribution. The data content is manually inputted by the companies producing the drugs as required per the Drug Listing Act of 1972. The FDA assigns the NDC – a unique three-digit number, to the drug products. The administration then updates the NDC directory daily with the NDC along with the rest of the information provided. We gathered content from this dataset on [enter date here]. This data was used to cross-validate the companies that we had previously identified as producing an innovation. ")
                                 )))
                      )
 
