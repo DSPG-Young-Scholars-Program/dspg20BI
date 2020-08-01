@@ -52,52 +52,10 @@ ui <- fluidPage(
 
                       ),
 
-             #ui
-             navbarMenu("Profiling",
 
-             tabPanel("Publishers", style = "margin:20px",
-                      h5("Top Publishers By Year"),
-                      br(),
-                      br(),
-                      br(),
-                      sidebarLayout(
-                        sidebarPanel(
-                          selectInput("year", "Year", choices = c(2013, 2014,2015,2016,2017,2018))),
-                        mainPanel(
-                          imageOutput("pub"))
-                      ),
+             navbarMenu("Overview",
 
-                      br(),
-                      br(),
-                      br(),
-                      br(),
-
-                      sidebarLayout(
-                        sidebarPanel(selectInput("year2", "Year", choices = c(2013, 2014, 2015, 2016, 2017, 2018))),
-                        mainPanel(imageOutput("comp"))
-                      )
-
-                      ),
-
-             tabPanel("Companies", style = "margin:20px",
-                      h5("Top Companies per Year"),
-                      br(),
-                      br(),
-                      br(),
-                      sidebarLayout(
-                        sidebarPanel(
-                          selectInput("year2", "Year", choices = c(2013, 2014, 2015, 2016, 2017, 2018))
-                        ),
-                        mainPanel(
-                          #imageOutput("comp")
-                          print("Test")
-                        )
-                      )
-
-
-                      ),
-
-             tabPanel("Profiles", style = "margin:60px",
+             tabPanel("Profiling the DNA Data", style = "margin:40px",
                       h5("Profiling", align = "center"),
                       p(style = "margin-top:25px","Profiling is essential for ensuring the contents of datasets align with the projects overall goal and resources. The first goal of the Business Innovation project is to obtain a general understanding of what companies are the ones producing recent innovation. Therefore, we profiled the DNA data to include only unique, complete and valid entries.  We defined a valid entry, as an article that was published after 2010, had more than 100 but less than 10,000 characters and had a company code that was in the company codes dictionary. The year restriction will allow us to only consider recent innovations, the character restriction will allow our computing resources to fully analyze the text and the company code restriction will ensure that we have the full name of the company which will provide better insights on the companies completing innovation. " ),
                       br(),
@@ -148,7 +106,37 @@ ui <- fluidPage(
 
                         ),
                         mainPanel(width = 3, tableOutput("tables"))
-                      ))
+                      )),
+
+
+
+             tabPanel("Top Publishers and Companies in DNA", style = "margin:20px",
+                      h5("Top Publishers By Year"),
+                      br(),
+                      br(),
+                      br(),
+                      sidebarLayout(
+                        sidebarPanel(
+                          selectInput("year", "Year", choices = c(2013,2014,2015,2016,2017,2018)),
+                          p(style = "font-size: 15px", "Bar chart showing the top publishers in DNA for each year between 2013 and 2018. NewsRx, a media and technology
+                            company, as well as Dow Jones and Company are among the top publishers consistently throughout our scope of years. Interestingly,
+                            NewsRX was at one point the world's largest producer of health related news.")),
+                        mainPanel(
+                          imageOutput("pub"))
+                      ),
+
+                      h5("Top Company Mentions By Year"),
+                      br(),
+                      br(),
+                      br(),
+                      br(),
+
+                      sidebarLayout(
+                        sidebarPanel(selectInput("year2", "Year", choices = c(2013, 2014, 2015, 2016, 2017, 2018))),
+                        mainPanel(imageOutput("comp"))
+                      )
+
+             )
 ),
              #end profiling tab------------------------------------------
 
