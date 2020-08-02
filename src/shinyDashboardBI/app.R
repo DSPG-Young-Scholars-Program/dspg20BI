@@ -58,7 +58,7 @@ ui <- fluidPage(
                       uniqueness, and validity for select columns we felt were important. Completeness is simply a percentage of how complete the data was. Uniqueness can be defined as the number of distinct entries for each of the variables. While our
                       criteria for what counted as valid changed depending on the variable, the general definition of what it means to be valid remains consistent -- a value that is legitimate and makes sense given the context of the variable being looked at.
                       Each company-related variable (i.e company_codes, company_codes_about, etc) was a comma seperated list of codes, with each code representing a company mentioned in their respective articles.
-                      When defining a valid entry in all these company-related columns, we defined a code as valid if and only if the code appearned in both the DNA articles and the accompanying DNA data dictionary. For instance, the company_codes column contains company codes for all
+                      When defining a valid entry in all these company-related columns, we defined a code as valid if and only if the code appeared in both the DNA articles and the accompanying DNA data dictionary. For instance, the company_codes column contains company codes for all
                       companies mentioned in a particular article. Obtaining these company codes and getting the unique count revealed a total of 73,688 total companies mentioned in these 1.9 million articles. However, only 64,005, or about 86.9% of these companies, were found
                       in the DNA code dictionary. Valid publication dates for these articles were defined
                       as simply being past 2010, as we were mainly concerned with articles published within the last decade. Finally, valid word counts for these articles needed to be greater than 100 but less than 10,000."),
@@ -167,7 +167,7 @@ ui <- fluidPage(
                         hr(),
                         fluidRow(style = "margin-top:50px",
                         column(2, h5("Fuzzy Matching")),
-                        column(7, wellPanel(p(style = "font-size:15px","To complete the fuzzy matching, we used a package by SeatGeeks called FuzzyWuzzy. FuzzyWuzzy uses the Levenshtein distance to calculate the minimum number of single character edits (insertions, deletions or substitutions) needed to change one word to another. The package contains several functions that produces a similarity ratio out of 100. The fuzz.ratio function calculates the ratio by using the basic Levenshtein distance and the equation from diff.libratio: 2*M / T, where T is the total number of characters in both strings and M is the number of matches. The fuzz.partial_ratio compares the shortest string (n) against all the n-length substrings of the larger string and returns the highest fuzz partial ratio. Therefore, if the shortest string is found within the larger string then the partial ratio will return a ratio of 100. For our purposes, we focused on a fuzz.ratio that would only produce 100 or perfect matches, but future work may seek a less strict threshold."))),
+                        column(7, wellPanel(p(style = "font-size:15px","String distancing is a way to measure how similar two strings of text are. One way to measure string distance is what is known as fuzzy matching. To complete the fuzzy matching, we used a package by SeatGeeks called FuzzyWuzzy. FuzzyWuzzy uses the Levenshtein distance to calculate the minimum number of single character edits (insertions, deletions or substitutions) needed to change one word to another. The package contains several functions that produces a similarity ratio out of 100. The fuzz.ratio function calculates the ratio by using the basic Levenshtein distance and the equation from diff.libratio: 2*M / T, where T is the total number of characters in both strings and M is the number of matches. The fuzz.partial_ratio compares the shortest string (n) against all the n-length substrings of the larger string and returns the highest fuzz partial ratio. Therefore, if the shortest string is found within the larger string then the partial ratio will return a ratio of 100. For our purposes, we focused on a fuzz.ratio that would only produce 100 or perfect matches, but future work may seek a less strict threshold."))),
                         column(3, tags$img(height = "80%", width = "100%",src = "fuzzyLogo.png"))
                         ),
                         hr(),
@@ -188,7 +188,7 @@ ui <- fluidPage(
                                  br(),
                                  br(),
                                  fluidRow(column(2),
-                                          column(8, wellPanel(p(style = "font-size:15px", "The table below demonstrates all the matches for between the three datasets. This information helps us understand which companies show up in the other datasets and help establish corporate families along with validating innovations. The FDA dataset is known as our groundtruth as this dataset is collected and revised by the FDA. Therefore, comparing FDA with the DNA  for instance, allows us to compare the companies mentioned in articles related to innovation and those companies producing innovation."))),
+                                          column(8, wellPanel(p(style = "font-size:15px", "The table below demonstrates all the matches for between the three datasets. This information helps us understand which companies show up in the other datasets and help establish corporate families along with validating innovations. The FDA dataset is known as our groundtruth, as this dataset is collected and revised by the FDA. Therefore, comparing FDA with the DNA  for instance, allows us to compare the companies mentioned in articles related to innovation and those companies producing innovation."))),
                                           column(2)
                                           ),
                                  selectInput("across", "Select", choices = c("FDAxNDC", "FDAxDNA", "DNAxNDC")),
@@ -207,19 +207,14 @@ ui <- fluidPage(
                                           hr(),
                                           br(),
                                           br(),
-                                          br(),
-                                          br(),
-                                          br(),
-                                          br(),
-                                          wellPanel(p("To the right is an undirected network of company co-mentions in articles labeled as having to do with innovation, where each node represents
-                                                      one distinct company, and each edge (i.e the line connecting one node to another) represents a co-mention between two companies. Knowing that our subset of
-                                                      articles used here each have to do with innovation, we can begin to see which companies are mentioned together in these articles, as well as see which distinct corporate
-                                                      entities occur more frequently with others companies (The more degrees a node has, the more connected it is to the network, and therefore appearing more often with other companies
-                                                      in innovation-related articles. For illustrative purposes, only co-mentions between companies that occur at least 125 times are shown. This means that connections between
-                                                      these nods represent co-mentions of two distinct companies that occured 125 times or more in the innovation-labeled articles."))
+                                          wellPanel(p("Here is an undirected network of companies who appear together in articles about innovation. The node size is defined by each nodes weighted degree (i.e the sum of the weighted edges for a particular node).
+                                                      The larger the node, the larger the weighted degree and therefore the more connected the node is to the network. Johnson & Johnson has the highest weighted degree, meaning that this company occurs with other companies the most
+                                                      and more often with the same companies in our subset of innovative articles.The color of each node represents the betweeness centrality, which is a metric that
+                                                      measures how often a node appears on shortest paths between nodes in the network. The darker the node, the more important that node is as a sort of connector between nodes. Again, Johnson & Johnson is the highest,
+                                                      meaning that when traveling from one node to another, moreoften than not the path will intersect Johnson & Johnson, making this company very central to the overall network. For illustrative purposes, only companies with degrees of 14 or more are shown, meaning that these companies are comentioned at least 14 times with other companies in our set of innovation-related articles."))
                                    ),
                                    column(7,
-                                          tags$img(height = "20%", width = "100%", src = "dashboardNetwork1.png")
+                                          tags$img(height = "20%", width = "100%", src = "innovationWeightBetweenDegree.png")
 
 
                                  )
