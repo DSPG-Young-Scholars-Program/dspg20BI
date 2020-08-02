@@ -205,13 +205,11 @@ ui <- fluidPage(
                                    column(5,
                                           h4("Undirected Coapperance Network of Companies in Innovative Articles"),
                                           hr(),
-                                          br(),
-                                          br(),
                                           wellPanel(p("Here is an undirected network of companies who appear together in articles about innovation. The node size is defined by each nodes weighted degree (i.e the sum of the weighted edges for a particular node).
                                                       The larger the node, the larger the weighted degree and therefore the more connected the node is to the network. Johnson & Johnson has the highest weighted degree, meaning that this company occurs with other companies the most
                                                       and more often with the same companies in our subset of innovative articles.The color of each node represents the betweeness centrality, which is a metric that
                                                       measures how often a node appears on shortest paths between nodes in the network. The darker the node, the more important that node is as a sort of connector between nodes. Again, Johnson & Johnson is the highest,
-                                                      meaning that when traveling from one node to another, moreoften than not the path will intersect Johnson & Johnson, making this company very central to the overall network. For illustrative purposes, only companies with degrees of 14 or more are shown, meaning that these companies are comentioned at least 14 times with other companies in our set of innovation-related articles."))
+                                                      meaning that when traveling from one node to another, moreoften than not the path will intersect Johnson & Johnson, making this company very central to the overall network. For illustrative purposes, only companies with degrees of 14 or more are shown, meaning that these companies are comentioned at least 14 (have 14 edges) times with other companies in our set of innovation-related articles."))
                                    ),
                                    column(7,
                                           tags$img(height = "20%", width = "100%", src = "innovationWeightBetweenDegree.png")
