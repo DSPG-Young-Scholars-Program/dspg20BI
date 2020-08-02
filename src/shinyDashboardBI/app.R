@@ -31,13 +31,13 @@ ui <- fluidPage(
                         DSPG young scholars conduct research at the intersection of statistics, computation, and the social sciences to determine how information
                         generated within every community can be leveraged to improve quality of life and inform public policy. ", style = "color:#232D4B"),
                       h5("DSPG20BI Project"),
-                      p("Currently, the National Science for Engineering and Statistics collects data related to innovation in their annual survey called
-                         ",tags$a(href = "https://www.nsf.gov/statistics/srvyindustry/about/brdis/", "the Business R&D and Innovation Survey (BRDIS)"),". Adopting the OSLO Manual 2018’s definition of innovation, which defines an innovative product as being new or improved and available on the market,
+                      p("Currently, the National Science for Engineering and Statistics collects data related to innovation in their annual survey called the
+                         ",tags$a(href = "https://www.nsf.gov/statistics/srvyindustry/about/brdis/", "Business R&D and Innovation Survey (BRDIS)"),". Adopting the OSLO Manual 2018’s definition of innovation, which defines an innovative product as being new or improved and available on the market,
                          the survey ultimately aims to capture the state of innovation in the U.S. However, additional methods of measuring innovation can help provide further indication as to the nation’s degree of innovation.
                          Partnering with NCSES, SDAD aims to see if non-traditional data-sources can help supplement BRDIS and aid in measuring innovation."),
 
                       p("During the 10-week DSPG internship program, the Business Innovation team focused on developing functions to clean company names across three different data sets, which includes FDA Drug Approvals, the National Drug Code Directory (NDC),
-                         and 2 million articles from the Dow Jones News and Analytics Platform (DNA). These clean corporate family names would then be matched across our three datasets to see if there existed any intersections.
+                         and 2 million articles from the Dow Jones News and Analytics Platform (DNA). These clean corporate family names were then matched across our three datasets to see if there existed any intersections.
                          Knowing which corporate families occur in all datasets indicates which companies are A) Being talked about in articles relating to the pharmaceutical industry, B) Which companies have filed with FDA, and C) Which drugs are currently listed in the NDC.
                          Having a common denominator can allow for joining the data to perform explaratory data analysis and natural language processessing in future work."),
 
@@ -158,13 +158,16 @@ ui <- fluidPage(
                     style = "margin-right: 120px;",
 
                       fluidRow(
-                        column(3, h5("Cleaning")),
-                        column(6, wellPanel(p(style = "font-size:15px","In order to match company names across all three dataset we had to make all the strings similar to each other to facilitate fuzzy matching. To accomplish this we used regular expressions, the string package and pandas' package. The first step in the process was to lowercase all the strings. Then, remove punctuations except for underscores, dashes, ampersands, percent and dollar symbols. Afterwards, we removed any parenthesis along with the content within the parentheses. We then removed single characters from the beginning and removed numbers, as numbers complicate the matching process. Additionally, we removed extra spaces between words, the prefix b, and any legal entities from the company name. This provided all three data sets to have similar words in the entries that would make matching companies that may have ")))
+                        column(2, h5("Cleaning")),
+                        column(7, wellPanel(p(style = "font-size:15px","In order to match company names across all three dataset we had to make all the strings similar to each other before beginning to measure string distance. To accomplish this we used regular expressions, the string package and the pandas library. The first step in the process was to lowercase all the strings. Then we removed select punctuations. Afterwards, we removed any parenthesis along with the content within the parentheses.
+                                              We then removed single characters from the beginning and removed numbers, as numbers complicate the matching process. Additionally, we removed extra spaces between words, the prefix b, and any legal entities from the company name. This process was repeated for all three of our datasets.
+                                              The end result was an aggressively cleaned name representing a corporate family for each company in each of the three datasets. With these collapsed names, we could then begin the matching process across the three datasets."))),
+                        column(3, tags$img(height = "100%", width = "100%",src = "regexLogo.png"))
                         ),
                         hr(),
                         fluidRow(style = "margin-top:50px",
                         column(3, h5("Fuzzy Matching")),
-                        column(6, wellPanel(p(style = "font-size:15px","To complete the fuzzy matching, we used a package by SeatGeeks called FuzzyWuzzy. FuzzyWuzzy uses the Levenshtein distance to calculate the minimum number of single character edits (insertions, deletions or substitutions) needed to change one word to another. The package contains several functions that produces a similarity ratio out of 100. The fuzz.ratio function calculates the ratio by using the basic Levenshtein distance and the equation from diff.libratio: 2*M / T, where T is the total number of characters in both strings and M is the number of matches. The fuzz.partial_ratio compares the shortest string (n) against all the n-length substrings of the larger string and returns the highest fuzz partial ratio. Therefore, if the shortest string is found within the larger string then the partial ratio will return a ratio of 100. For our purposes, we focused on a fuzz.ratio that would only produce 100 or perfect matches.")))
+                        column(6, wellPanel(p(style = "font-size:15px","To complete the fuzzy matching, we used a package by SeatGeeks called FuzzyWuzzy. FuzzyWuzzy uses the Levenshtein distance to calculate the minimum number of single character edits (insertions, deletions or substitutions) needed to change one word to another. The package contains several functions that produces a similarity ratio out of 100. The fuzz.ratio function calculates the ratio by using the basic Levenshtein distance and the equation from diff.libratio: 2*M / T, where T is the total number of characters in both strings and M is the number of matches. The fuzz.partial_ratio compares the shortest string (n) against all the n-length substrings of the larger string and returns the highest fuzz partial ratio. Therefore, if the shortest string is found within the larger string then the partial ratio will return a ratio of 100. For our purposes, we focused on a fuzz.ratio that would only produce 100 or perfect matches, but future work may seek a less strict threshold.")))
                         ),
                         hr(),
                         fluidRow(style = "margin-top:50px",
@@ -180,7 +183,12 @@ ui <- fluidPage(
 
                         tabPanel("Across Data Matching",
                                  h5("Across Data Matching"),
-                                 hr(),
+                                 br(),
+                                 br(),
+                                 fluidRow(column(2),
+                                          column(8, wellPanel(p(style = "font-size:15px", "The table below demonstrates all the matches for between the three datasets. This information helps us understand which companies show up in the other datasets and help establish corporate families along with validating innovations. The FDA dataset is known as our groundtruth as this dataset is collected and revised by the FDA. Therefore, comparing FDA with the DNA  for instance, allows us to compare the companies mentioned in articles related to innovation and those companies producing innovation."))),
+                                          column(2)
+                                          ),
                                  selectInput("across", "Select", choices = c("FDAxNDC", "FDAxDNA", "DNAxNDC")),
                                  dataTableOutput("AcrossData")
 
