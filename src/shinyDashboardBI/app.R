@@ -154,7 +154,7 @@ ui <- fluidPage(
              tabPanel("Methods",
                     h3("Methods", align = "center", style = "margin-bottom: 20px"),
                     style = "margin-left: 120px;",
-                    style = "margin-top: 20px;",
+                    #style = "margin-top: 20px;",
                     style = "margin-right: 120px;",
 
                       fluidRow(
@@ -166,15 +166,17 @@ ui <- fluidPage(
                         ),
                         hr(),
                         fluidRow(style = "margin-top:50px",
-                        column(3, h5("Fuzzy Matching")),
-                        column(6, wellPanel(p(style = "font-size:15px","To complete the fuzzy matching, we used a package by SeatGeeks called FuzzyWuzzy. FuzzyWuzzy uses the Levenshtein distance to calculate the minimum number of single character edits (insertions, deletions or substitutions) needed to change one word to another. The package contains several functions that produces a similarity ratio out of 100. The fuzz.ratio function calculates the ratio by using the basic Levenshtein distance and the equation from diff.libratio: 2*M / T, where T is the total number of characters in both strings and M is the number of matches. The fuzz.partial_ratio compares the shortest string (n) against all the n-length substrings of the larger string and returns the highest fuzz partial ratio. Therefore, if the shortest string is found within the larger string then the partial ratio will return a ratio of 100. For our purposes, we focused on a fuzz.ratio that would only produce 100 or perfect matches, but future work may seek a less strict threshold.")))
+                        column(2, h5("Fuzzy Matching")),
+                        column(7, wellPanel(p(style = "font-size:15px","To complete the fuzzy matching, we used a package by SeatGeeks called FuzzyWuzzy. FuzzyWuzzy uses the Levenshtein distance to calculate the minimum number of single character edits (insertions, deletions or substitutions) needed to change one word to another. The package contains several functions that produces a similarity ratio out of 100. The fuzz.ratio function calculates the ratio by using the basic Levenshtein distance and the equation from diff.libratio: 2*M / T, where T is the total number of characters in both strings and M is the number of matches. The fuzz.partial_ratio compares the shortest string (n) against all the n-length substrings of the larger string and returns the highest fuzz partial ratio. Therefore, if the shortest string is found within the larger string then the partial ratio will return a ratio of 100. For our purposes, we focused on a fuzz.ratio that would only produce 100 or perfect matches, but future work may seek a less strict threshold."))),
+                        column(3, tags$img(height = "80%", width = "100%",src = "fuzzyLogo.png"))
                         ),
                         hr(),
                         fluidRow(style = "margin-top:50px",
-                            column(3, h5("Network Analysis")),
-                            column(6, wellPanel(p(style = "font-size:15px", "With network analysis, we leverage the open-sourced software Gephi to visualize co-mentions between companies in DNA articles. Looking at statistical metrics like closeness-centrality, betweenness-centrality, and degree centrality, we can better understand which companies are central to the overall undirected network of co-mentions, and by extension, gain valuable insight into which pairings of companies are typically mentioned in articles about innovation.")))
+                            column(2, h5("Network Analysis")),
+                            column(7, wellPanel(p(style = "font-size:15px", "With network analysis, we leverage the open-sourced software Gephi to visualize co-mentions between companies in DNA articles. Looking at statistical metrics like closeness-centrality, betweenness-centrality, and degree centrality, we can better understand which companies are central to the overall undirected network of co-mentions, and by extension, gain valuable insight into which pairings of companies are typically mentioned in articles about innovation."))),
+                            column(3, tags$img(height = "80%", width = "100%",src = "gephyLogo.png")))
 
-                        )),#end navbar
+                        ),#end navbar
 
              #end Data Sources and Methods tabs-----------------
 
