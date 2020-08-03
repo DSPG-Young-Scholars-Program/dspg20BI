@@ -5,7 +5,9 @@ library(data.table)
 library(rsconnect)
 library(DT)
 
-#testing
+#Add hyperlinks to necessary places (i.e logos etc)
+
+#tags$a(tags$img(height = "100%", width = "70%", src = "biilogo.png", align = "left" ), href="https://biocomplexity.virginia.edu/"
 
 ui <- fluidPage(
   theme ="themes.css",
@@ -13,12 +15,28 @@ ui <- fluidPage(
   navbarPage(title = span("Business Innovation", style = "color:#232D4B"),
              tabPanel("About",style = "margin:45px",
                       fluidRow(
-                        column(3, tags$img(height = "80%", width = "80%", src = "biilogo.png")),
+                        column(3, tags$a(tags$img(height = "80%", width = "80%", src = "biilogo.png"),href="https://biocomplexity.virginia.edu/")),
                         column(6, h1("Business Innovation")),
-                        column(3, tags$img(height = "80%", width = "80%", src = "partnerlogos.png", align = "right"))
+                        column(3, tags$a(tags$img(height = "80%", width = "80%", src = "partnerlogos.png", align = "right"), href= "https://www.nsf.gov/statistics/"))
                       ),
 
-                      h5("SDAD/DSPG"),
+                      h5("Project"),
+                      p("Broadly we can define business innovation as the process of creating new or improved changes in business.
+                        Following the international guidelines for surveys of business innovation in the Oslo Manual developed by the Organization for Economic Co-operation and Development (OECD) and Eurostat,
+                        any business innovation can be categorized as a product innovation, a business process innovation, a marketing innovation or an organizational innovation.
+                        A product innovation implies introduction of a new or improved product to the market, whereas a business process innovation indicates a new or significantly improved production or delivery method.
+                        The marketing innovation includes a new marketing method and organizational innovation implies a new organizational method in business practices. Business innovation is crucial for value creation which can be achieved by
+                        introduction of new or improved products in the market, on the other hand process innovation may lead to greater productivity, and thus business innovation serves as an indicator of growth in an economy. "),
+                      p("Currently, the National Science for Engineering and Statistics collects data related to innovation in their annual survey called the
+                         ",tags$a(href = "https://www.nsf.gov/statistics/srvyindustry/about/brdis/", "Business R&D and Innovation Survey (BRDIS)"),". Adopting the OSLO Manual 2018’s definition of innovation, which defines an innovative product as being new or improved and available on the market,
+                        the survey ultimately aims to capture the state of innovation in the U.S. However, additional methods of measuring innovation can help provide further indication as to the nation’s degree of innovation.
+                        Partnering with NCSES, SDAD aims to see if non-traditional data-sources can help supplement BRDIS and aid in measuring innovation."),
+                      p("In the ten weeks of the DSPG program, the Business Innovation team focused on implementing the data science framework, primarily data ingestion and data wrangling, to provide the building blocks for natural language
+                        processes and machine learning techniques that will detect innovation in text data.
+                        We created functions that clean company names and then matched these companies across our three datasets to find overlaps. We also created matrices on the match scores of the three datasets of interest.
+                        Additionally, we analyzed co-mention of companies in articles through network analysis, and consolidated our findings in this dashboard."),
+
+                      h5("About Us"),
                       p("The Social and Decision Analytics Division (SDAD) is one of three research divisions within the Biocomplexity Institute and Initiative at the University of Virginia.
                         SDAD combines expertise in statistics and social and behavioral sciences to develop evidence-based research
                         and quantitative methods to inform policy decision-making and evaluation.
@@ -26,20 +44,12 @@ ui <- fluidPage(
                         political science, policy, health IT, public health, program evaluation, and data science.
                         The SDAD office is located near our nation's capital in Arlington, VA. You can learn more about us at",
                         tags$a(href="https://biocomplexity.virginia.edu/social-decision-analytics.", "https://biocomplexity.virginia.edu/social-decision-analytics."), style = "color:#232D4B"),
+
                       p("The Data Science for the Public Good (DSPG) Young Scholars program is a summer immersive program held at SDAD. Entering its seventh year, the program engages students from across the country
                         to work together on projects that address state, federal, and local government challenges around critical social issues relevant in the world today.
                         DSPG young scholars conduct research at the intersection of statistics, computation, and the social sciences to determine how information
                         generated within every community can be leveraged to improve quality of life and inform public policy. ", style = "color:#232D4B"),
-                      h5("DSPG20BI Project"),
-                      p("Currently, the National Science for Engineering and Statistics collects data related to innovation in their annual survey called the
-                         ",tags$a(href = "https://www.nsf.gov/statistics/srvyindustry/about/brdis/", "Business R&D and Innovation Survey (BRDIS)"),". Adopting the OSLO Manual 2018’s definition of innovation, which defines an innovative product as being new or improved and available on the market,
-                         the survey ultimately aims to capture the state of innovation in the U.S. However, additional methods of measuring innovation can help provide further indication as to the nation’s degree of innovation.
-                         Partnering with NCSES, SDAD aims to see if non-traditional data-sources can help supplement BRDIS and aid in measuring innovation."),
 
-                      p("During the 10-week DSPG internship program, the Business Innovation team focused on developing functions to clean company names across three different data sets, which includes FDA Drug Approvals, the National Drug Code Directory (NDC),
-                         and 2 million articles from the Dow Jones News and Analytics Platform (DNA). These clean corporate family names were then matched across our three datasets to see if there existed any intersections.
-                         Knowing which corporate families occur in all datasets indicates which companies are A) Being talked about in articles relating to the pharmaceutical industry, B) Which companies have filed with FDA, and C) Which drugs are currently listed in the NDC.
-                         Having a common denominator can allow for joining the data to perform explaratory data analysis and natural language processessing in future work."),
 
                       h5("Our Team"),
                       p("SDAD: Devika Mahoney-Nair, Gizem Korkmaz, & Neil Alexander"),
