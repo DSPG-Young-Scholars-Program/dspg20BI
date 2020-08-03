@@ -42,8 +42,8 @@ ui <- fluidPage(
                         and quantitative methods to inform policy decision-making and evaluation.
                         The researchers at SDAD span many disciplines including statistics, economics, sociology, psychology,
                         political science, policy, health IT, public health, program evaluation, and data science.
-                        The SDAD office is located near our nation's capital in Arlington, VA. You can learn more about us at",
-                        tags$a(href="https://biocomplexity.virginia.edu/social-decision-analytics.", "https://biocomplexity.virginia.edu/social-decision-analytics."), style = "color:#232D4B"),
+                        The SDAD office is located near our nation's capital in Arlington, VA. You can learn more about us ",
+                        tags$a(href="https://biocomplexity.virginia.edu/", "here."), style = "color:#232D4B"),
 
                       p("The Data Science for the Public Good (DSPG) Young Scholars program is a summer immersive program held at SDAD. Entering its seventh year, the program engages students from across the country
                         to work together on projects that address state, federal, and local government challenges around critical social issues relevant in the world today.
@@ -68,12 +68,10 @@ ui <- fluidPage(
                       uniqueness, and validity for select columns we felt were important. Completeness is simply a percentage of how complete the data was. Uniqueness can be defined as the number of distinct entries for each of the variables. While our
                       criteria for what counted as valid changed depending on the variable, the general definition of what it means to be valid remains consistent -- a value that is legitimate and makes sense given the context of the variable being looked at.
                       Each company-related variable (i.e company_codes, company_codes_about, etc) was a comma seperated list of codes, with each code representing a company mentioned in their respective articles.
-                      When defining a valid entry in all these company-related columns, we defined a code as valid if and only if the code appeared in both the DNA articles and the accompanying DNA data dictionary. For instance, the company_codes column contains company codes for all
-                      companies mentioned in a particular article. Obtaining these company codes and getting the unique count revealed a total of 73,688 total companies mentioned in these 1.9 million articles. However, only 64,005, or about 86.9% of these companies, were found
-                      in the DNA code dictionary. Valid publication dates for these articles were defined
-                      as simply being past 2010, as we were mainly concerned with articles published within the last decade. Finally, valid word counts for these articles needed to be greater than 100 but less than 10,000."),
-
-                      p("The results for our profiling can be seen below"),
+                      When defined a code in these company columns as valid if and only if the code appeared in both the DNA articles and the accompanying DNA data dictionary. For instance, the company_codes column contains company codes for all
+                      companies mentioned in a particular article, with some being listed more than once. Obtaining these company codes and getting the unique count revealed a total of 73,688 total distinct companies mentioned in these 1.9 million articles. However, only 64,005, or about 86.9% of these companies, were found
+                      in the DNA code dictionary.Valid publication dates for these articles were defined as simply being past 2010,
+                      as we were mainly concerned with articles published within the last decade.Finally, valid word counts for these articles needed to be greater than 100 but less than 10,000."),
                       br(),
 
                       sidebarLayout(
@@ -121,7 +119,7 @@ ui <- fluidPage(
                           )
 
                         ),
-                        mainPanel(width = 6, tableOutput("tables"))
+                        mainPanel(width = 6, dataTableOutput("tables"))
                       )),
 
 
@@ -135,7 +133,7 @@ ui <- fluidPage(
                         sidebarPanel(
                           selectInput("year", "Year", choices = c(2013,2014,2015,2016,2017,2018)),
                           p(style = "font-size: 15px", "Bar chart showing the top publishers in DNA for each year between 2013 and 2018. NewsRx, a media and technology
-                            company, as well as Dow Jones and Company are among the top publishers consistently throughout our scope of years. Interestingly,
+                            company, as well as Dow Jones and Company, Inc. are consistenly among the top publishers between 2013 and 2018. Interestingly enough,
                             NewsRX was at one point the world's largest producer of health related news.")),
                         mainPanel(
                           imageOutput("pub"))
@@ -306,13 +304,14 @@ server <- function(input, output) {
 
 
 
-  output$tables <- renderTable({
+  output$tables <- renderDataTable({
     if(input$selectTable == "Validity"){
 
 
       valid <- read.csv("validitytable.csv")
       names(valid)[names(valid) == "X"] <- "Column Name"
 
+      valid$Validity <- round(valid$Validity, digits = 2)
 
       valid
     }else{
@@ -321,6 +320,8 @@ server <- function(input, output) {
       names(profTable)[names(profTable) == "X"] <- "Column Name"
 
       profTable$Duplicates <- NULL
+      profTable$Completeness <- round(profTable$Completeness, digits = 2)
+      profTable$Uniqueness <- round(profTable$Uniqueness, digits = 2)
 
 
 
