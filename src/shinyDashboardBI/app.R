@@ -27,9 +27,8 @@ ui <- fluidPage(
                         A product innovation implies introduction of a new or improved product to the market, whereas a business process innovation indicates a new or significantly improved production or delivery method.
                         The marketing innovation includes a new marketing method and organizational innovation implies a new organizational method in business practices. Business innovation is crucial for value creation which can be achieved by
                         introduction of new or improved products in the market, on the other hand process innovation may lead to greater productivity, and thus business innovation serves as an indicator of growth in an economy. "),
-                      p("Currently, the National Science for Engineering and Statistics collects data related to innovation in their annual survey called the
-                         ",tags$a(href = "https://www.nsf.gov/statistics/srvyindustry/about/brdis/", "Business R&D and Innovation Survey (BRDIS)"),". Adopting the OSLO Manual 2018’s definition of innovation, which defines an innovative product as being new or improved and available on the market,
-                        the survey ultimately aims to capture the state of innovation in the U.S. However, additional methods of measuring innovation can help provide further indication as to the nation’s degree of innovation.
+                      p("The National Science for Engineering and Statistics collects data related to innovation in their annual",tags$a(href = "https://www.nsf.gov/statistics/srvyindustry/about/brdis/", "Business R&D and Innovation Survey (BRDIS)."),
+                        "The survey aims to capture the state of innovation in the United States as defined by the 2018 Oslo Manual — any new or improved product available on the market. However, additional methods of measuring innovation can help provide further indication as to the nation’s degree of innovation.
                         Partnering with NCSES, SDAD aims to see if non-traditional data-sources can help supplement BRDIS and aid in measuring innovation."),
                       p("In the ten weeks of the DSPG program, the Business Innovation team focused on implementing the data science framework, primarily data ingestion and data wrangling, to provide the building blocks for natural language
                         processes and machine learning techniques that will detect innovation in text data.
@@ -148,7 +147,7 @@ ui <- fluidPage(
                         sidebarPanel(selectInput("year2", "Year", choices = c(2013, 2014, 2015, 2016, 2017, 2018)),
                                      p(style = "font-size: 15px", "Regulatory agenices like the US Securities and Exchange Commission and the US
                                        Food and Drug Administration are over-represented in the DNA articles. Pharmaceutical giants like Pfizer and
-                                       Johnson and Johnson rank consistently at the top, indicating that these corporations are some of the most talked about in the pharma space.
+                                       Johnson & Johnson rank consistently at the top, indicating that these corporations are some of the most talked about in the pharma space.
                                        ")
                                      ),
                         mainPanel(imageOutput("comp"))
