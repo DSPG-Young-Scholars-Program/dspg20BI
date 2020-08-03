@@ -62,7 +62,8 @@ ui <- fluidPage(
              navbarMenu("DNA Overview",
 
              tabPanel("Profiling the DNA Data", style = "margin:20px",
-                      h5("Profiling", align = "center"),
+                      fluidRow(column(12, align = "center", h5("Profiling"))),
+
                       p(style = "margin-top:25px","Our first task was to profile the DNA data in order to get a better understanding of both its quality and fitness for use. We looked primarily at metrics like data completeness,
                       uniqueness, and validity for select columns we felt were important. Completeness is simply a percentage of how complete the data was. Uniqueness can be defined as the number of distinct entries for each of the variables. While our
                       criteria for what counted as valid changed depending on the variable, the general definition of what it means to be valid remains consistent -- a value that is legitimate and makes sense given the context of the variable being looked at.
@@ -124,7 +125,8 @@ ui <- fluidPage(
 
 
              tabPanel("Top Publishers and Companies in DNA", style = "margin:20px",
-                      h5("Top Publishers By Year"),
+                      fluidRow(column(12, align = "center", h5("Top Publishers By Year"))),
+
                       br(),
                       br(),
                       br(),
@@ -137,8 +139,12 @@ ui <- fluidPage(
                         mainPanel(
                           imageOutput("pub"))
                       ),
+                      br(),
+                      br(),
+                      br(),
+                      br(),
+                      fluidRow(column(12, align = "center", h5("Top Company Mentions By Year"))),
 
-                      h5("Top Company Mentions By Year"),
                       br(),
                       br(),
                       br(),
