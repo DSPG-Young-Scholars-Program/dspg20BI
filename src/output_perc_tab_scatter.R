@@ -6,50 +6,50 @@ ndc_list %>% filter(str_detect(LABELERNAME, "7-Eleven"))
 ndc_orig_ct <- ndc_list %>% count(year = stringr::str_extract(STARTMARKETINGDATE, "^\\d{4}"), 
                    ndc_comp = LABELERNAME)
 
-ndc_orig_ct
+# ndc_orig_ct
 
 ################
 
-legal_entities <- readr::read_csv("https://raw.githubusercontent.com/DSPG-Young-Scholars-Program/dspg20oss/danBranch/ossPy/keyFiles/curatedLegalEntitesRaw.csv",col_names = "entity", quote = "'" )
-patt <- paste0(legal_entities$entity, collapse = "|")
-
-top20_entities_remove <- c('pharmaceuticals', 'medical', 'products',
-   'laboratories', 'pharma',
-   'anda',
-   'supply',
-   'health',
-   'pharmaceutical',
-   'usa',
-   'international',
-   'care',
-   'and',
-   'nda',
-   'coltd',
-   'the',
-   'home',
-   'healthcare',
-   # '',
-   'of',
-  'group',
-  'holdings',
-  'capital',
-  'technologies',
-  'association',
-  'us',
-  'services',
-  'university',
-  'bank',
-  'partners',
-  'energy',
-  'systems',
-  'intl',
-  'pharms',
-  'american',
-  'national',
-  'biosciences')
-
-# patt2 <- paste0("\\b(", paste0(top20_entities_remove, collapse = "|"), ")\\b")
-patt2 <-paste0("\\b", top20_entities_remove, "\\b", collapse = "|")
+# legal_entities <- readr::read_csv("https://raw.githubusercontent.com/DSPG-Young-Scholars-Program/dspg20oss/danBranch/ossPy/keyFiles/curatedLegalEntitesRaw.csv",col_names = "entity", quote = "'" )
+# patt <- paste0(legal_entities$entity, collapse = "|")
+# 
+# top20_entities_remove <- c('pharmaceuticals', 'medical', 'products',
+#    'laboratories', 'pharma',
+#    'anda',
+#    'supply',
+#    'health',
+#    'pharmaceutical',
+#    'usa',
+#    'international',
+#    'care',
+#    'and',
+#    'nda',
+#    'coltd',
+#    'the',
+#    'home',
+#    'healthcare',
+#    # '',
+#    'of',
+#   'group',
+#   'holdings',
+#   'capital',
+#   'technologies',
+#   'association',
+#   'us',
+#   'services',
+#   'university',
+#   'bank',
+#   'partners',
+#   'energy',
+#   'systems',
+#   'intl',
+#   'pharms',
+#   'american',
+#   'national',
+#   'biosciences')
+# 
+# # patt2 <- paste0("\\b(", paste0(top20_entities_remove, collapse = "|"), ")\\b")
+# patt2 <-paste0("\\b", top20_entities_remove, "\\b", collapse = "|")
 # patt2 <-paste0("\b", top20_entities_remove, "\b", collapse = "|")
 
 ###############
@@ -91,12 +91,12 @@ ndc_summary_table <- ndc_orig_ct_CORPFAM %>%
   filter(cleaned_name != "") %>% 
   as.data.frame()
 
-table(ndc_summary_table$cleaned_name)
+# table(ndc_summary_table$cleaned_name)
 
 ########################
 
 ndc_dna_matching <- read.csv("data/working/ndc_dna_matching.csv")
-ndc_dna_matching %>% head()
+# ndc_dna_matching %>% head()
 
 ndc_potential_corpfam_listings <- ndc_dna_matching %>% #select(clean.NDC.company, corporate.family, original.NDC.company) %>% head()
   # select(corporate.family) %>%
@@ -106,7 +106,7 @@ ndc_potential_corpfam_listings <- ndc_dna_matching %>% #select(clean.NDC.company
 ndc_potential_corpfam_listings$num_ndc_listings <- ndc_potential_corpfam_listings$n
 ndc_potential_corpfam_listings$n <- NULL
 
-ndc_potential_corpfam_listings %>% head()
+# ndc_potential_corpfam_listings %>% head()
 # ##CHECKS
 # potential_clean_names %>% filter(str_detect(str_to_lower(ndc_comp), "verio"))
 # ndc_dna_matching %>% filter(str_detect(corporate.family, "verio"))
@@ -125,9 +125,9 @@ ndc_potential_corpfam_listings <- ndc_potential_corpfam_listings %>%
   mutate(perc_ndc = listings/total_listings,
          perc_ndc_ = scales::percent(listings/total_listings))
 
-hist(ndc_potential_corpfam_listings$listings/ndc_potential_corpfam_listings$total_listings)
-ndc_potential_corpfam_listings %>% arrange(desc(perc_ndc)) %>% head(20) %>% select(corporate.family, year, perc_ndc)
-ndc_potential_corpfam_listings %>% arrange(desc(perc_ndc)) %>% head()
+# hist(ndc_potential_corpfam_listings$listings/ndc_potential_corpfam_listings$total_listings)
+# ndc_potential_corpfam_listings %>% arrange(desc(perc_ndc)) %>% head(20) %>% select(corporate.family, year, perc_ndc)
+# ndc_potential_corpfam_listings %>% arrange(desc(perc_ndc)) %>% head()
 
 
 ########################
@@ -337,6 +337,7 @@ ndc_corpfam_scatter <- readRDS("~/git/dspg20BI/data/working/ndc_dna_corpfam_scat
 fda_corpfam_scatter <- readRDS("~/git/dspg20BI/data/working/fda_dna_corpfam_scatter.RDS")
 
 library(ggplot2)
+library(dplyr)
 
 
 ggplot(data = ndc_corpfam_scatter, aes(x = perc_ndc, y = perc_dna)) + 
@@ -366,5 +367,15 @@ ggplot(data = ndc_corpfam_scatter_fdayn, aes(x = perc_ndc, y = perc_dna)) +
   geom_point(stat = "identity", aes(color = fda)) + 
   facet_grid(~year) 
 
+ggplot(data = fda_corpfam_scatter, aes(x = perc_fda, y = perc_dna)) + 
+  geom_point(stat = "identity") +
+  facet_grid(~year) + 
+  geom_smooth(method='lm') + 
+  geom_text(data = fda_corpfam_scatter %>% filter(perc_dna > 0.01 |perc_fda > 0.01), aes(label = corporate.family ))
 
+ggplot(data = ndc_corpfam_scatter, aes(x = perc_ndc, y = perc_dna)) + 
+  geom_point(stat = "identity") +
+  facet_grid(~year) + 
+  geom_smooth(method='lm') + 
+  geom_text(data = ndc_corpfam_scatter %>% filter(perc_dna > 0.01 |perc_ndc > 0.01), aes(label = corporate.family ))
 
