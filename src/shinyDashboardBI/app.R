@@ -67,7 +67,7 @@ ui <- fluidPage(
                       uniqueness, and validity for select columns we felt were important. Completeness is simply a percentage of how complete the data was. Uniqueness can be defined as the number of distinct entries for each of the variables. While our
                       criteria for what counted as valid changed depending on the variable, the general definition of what it means to be valid remains consistent -- a value that is legitimate and makes sense given the context of the variable being looked at.
                       Each company-related variable (i.e company_codes, company_codes_about, etc) was a comma seperated list of codes, with each code representing a company mentioned in their respective articles.
-                      When defined a code in these company columns as valid if and only if the code appeared in both the DNA articles and the accompanying DNA data dictionary. For instance, the company_codes column contains company codes for all
+                      We defined a code in these company columns as valid if and only if the code appeared in both the DNA articles and the accompanying DNA data dictionary. For instance, the company_codes column contains company codes for all
                       companies mentioned in a particular article, with some being listed more than once. Obtaining these company codes and getting the unique count revealed a total of 73,688 total distinct companies mentioned in these 1.9 million articles. However, only 64,005, or about 86.9% of these companies, were found
                       in the DNA code dictionary.Valid publication dates for these articles were defined as simply being past 2010,
                       as we were mainly concerned with articles published within the last decade.Finally, valid word counts for these articles needed to be greater than 100 but less than 10,000."),
@@ -75,7 +75,7 @@ ui <- fluidPage(
 
                       sidebarLayout(
                         sidebarPanel(
-                          width = 6,
+                          width = 7,
                           selectInput("selectTable", "Select", choices = c("Completeness and Uniqueness", "Validity")),
                           h4("Definitions: ", style = "margin-top:30px"),
                           helpText("Note: All definitions are provided by Dow Jones Developer Platform"),
@@ -118,7 +118,7 @@ ui <- fluidPage(
                           )
 
                         ),
-                        mainPanel(width = 6, dataTableOutput("tables"))
+                        mainPanel(width = 5, dataTableOutput("tables"))
                       )),
 
 
