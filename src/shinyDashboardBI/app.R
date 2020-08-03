@@ -191,11 +191,12 @@ ui <- fluidPage(
              navbarMenu("Results",
 
                         tabPanel("Across Data Matching",
-                                 h5("Across Data Matching"),
+                                 fluidRow(column(12, align = "center", h5("Across Data Matching"))),
+                                 #h5("Across Data Matching"),
                                  br(),
                                  br(),
                                  fluidRow(column(2),
-                                          column(8, wellPanel(p(style = "font-size:15px", "The table below demonstrates all the matches for between the three datasets. This information helps us understand which companies show up in the other datasets and help establish corporate families along with validating innovations. The FDA dataset is known as our groundtruth, as this dataset is collected and revised by the FDA. Therefore, comparing FDA with the DNA  for instance, allows us to compare the companies mentioned in articles related to innovation and those companies producing innovation."))),
+                                          column(8, p(style = "font-size:15px", "The table below demonstrates all the matches for between the three datasets. This information helps us understand which companies show up in the other datasets and help establish corporate families along with validating innovations. The FDA dataset is known as our groundtruth, as this dataset is collected and revised by the FDA. Therefore, comparing FDA with the DNA  for instance, allows us to compare the companies mentioned in articles related to innovation and those companies producing innovation.")),
                                           column(2)
                                           ),
                                  selectInput("across", "Select", choices = c("FDAxNDC", "FDAxDNA", "DNAxNDC")),
@@ -205,7 +206,7 @@ ui <- fluidPage(
 
                         ),
                         tabPanel("Network Analysis",
-                                 h5("Network Analysis Using Gephi"),
+                                 fluidRow(column(12, align = "center", h5("Network Analysis Using Gephi"))),
                                  fluidRow(
                                    br(),
                                    br(),
@@ -233,7 +234,7 @@ ui <- fluidPage(
                         ),
 
             tabPanel("Data Sources",
-                     h3("Data Sources", align = "center", style = "margin-bottom: 50px"),
+                     fluidRow(column(12, align = "center", h5("Data Sources"), style = "margin-bottom: 50px")),
                      style = "margin-left: 120px;",
                      style = "margin-top: 30px;",
                      style = "margin-right: 120px;",
@@ -247,7 +248,10 @@ ui <- fluidPage(
                               column(3, tags$img(height = "100%", width = "100%", src = "fdalogo.png")),
                               column(8, wellPanel(
                                 tags$b("FDA Approval Listings"),
-                                p(style = "font-size:15px", "FDA drug approvals dataset generated and reviewed by FDA and includes information regarding Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim vitae diam a convallis. Suspendisse nisi erat, aliquet et fringilla non, feugiat et justo. Nam felis nisl, cursus sed enim ac, posuere gravida ex. Cras maximus lacus pharetra arcu pretium pellentesque. Morbi maximus elit ut elementum auctor.",
+                                p(style = "font-size:15px", "The U.S. Food & Drug Administration (FDA) provides publicly available data on companies that have produced a drug
+                                  innovation and have submitted an application to the FDA. This data is stored in their Drugs@FDA database and is updated on a weekly basis.
+                                  This database contains information on the application and product type.  We gathered data from December 17th, 2019 to have as a ground truth dataset on the
+                                  companies that produce innovation. This dataset acted as the validity check for the articles in our DNA dataset.  ",
                                   br(),
                                   br(),
                                 tags$b("National Drug Code Directory"),
