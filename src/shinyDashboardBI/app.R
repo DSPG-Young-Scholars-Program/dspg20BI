@@ -216,21 +216,62 @@ ui <- fluidPage(
                                  fluidRow(
                                    br(),
                                    br(),
-                                   column(5,
-                                          h4("Undirected Coapperance Network of Companies in Innovative Articles"),
-                                          hr(),
-                                          wellPanel(p("Here is an undirected network of companies who appear together in articles about innovation. The node size is defined by each nodes weighted degree (i.e the sum of the weighted edges for a particular node).
-                                                      The larger the node, the larger the weighted degree and therefore the more connected the node is to the network. Johnson & Johnson has the highest weighted degree, meaning that this company occurs with other companies the most
-                                                      and more often with the same companies in our subset of innovative articles.The color of each node represents the betweeness centrality, which is a metric that
-                                                      measures how often a node appears on shortest paths between nodes in the network. The darker the node, the more important that node is as a sort of connector between nodes. Again, Johnson & Johnson is the highest,
-                                                      meaning that when traveling from one node to another, moreoften than not the path will intersect Johnson & Johnson, making this company very central to the overall network. For illustrative purposes, only companies with degrees of 14 or more are shown, meaning that these companies are comentioned at least 14 (have 14 edges) times with other companies in our set of innovation-related articles."))
+
+                                   column(6,
+                                          h4("Innovation vs Non-Innovation", align = "center"),
+
+                                          wellPanel(style = "margin-top:80px",p("This network shows major companies that appeared in Dow Jones news article database. The orange nodes are the company names that have been mentioned in
+                                                      articles that reported innovation, whereas, the companies in green are reported in the articles but not associated with innovation. The node sizes are based
+                                                      on the weighted degree of the nodes which indicate how well connected a node is in a network. That is, a higher weighted degree translates into greater importance
+                                                      of a node in the network. From the network we can see Companies like Johnson & Johnson is the biggest node among companies and Citigroup Inc., JP Morgan Chase & Co.
+                                                      are the most connected financial institutes."))
                                    ),
-                                   column(7,
-                                          tags$img(height = "20%", width = "100%", src = "innovationWeightBetweenDegree.png")
+                                   column(6,
+                                          tags$img(height = "20%", width = "100%", src = "innov_vs_non_innov_companies.png")
+
 
 
                                  )
+                                 ),
+                                 fluidRow(
+                                   column(6,
+                                          h4("Major Innovating Companies", align = "center"),
+
+                                          wellPanel(style = "margin-top:80px",p("Here we separated the innovating companies from the non-innovating ones to get a better idea about who are the major companies in the network that have been mentioned in the articles that are about business innovation. We can see that Johnson & Johnson, Glaxo Smith PLC, Bristol-Myers Squibb Co,
+                                                                                 Abbott Laboratories Inc. are the most prominent ones. We are still using weighted degree to determine the node size."))
+                                   ),
+                                   column(6,
+                                          tags$img(height = "20%", width = "100%", src = "major_innovating_companies.png")
+
+
+
+                                   )
+
+                                 ),
+
+                                 fluidRow(
+                                   column(6,
+                                          h4("Major Innovating Companies", align = "center"),
+
+                                          wellPanel(style = "margin-top:50px",p("Next we looked into the type of companies that appeared as the innovative companies in the article database.
+                                                                                Our aim was to classify these companies into groups which can give us insight about particular industry.
+                                                                                Modularity measure of a network enables us to visualize the existing groups in the network by classifying the nodes into different groups.
+                                                                                Therefore, for our purpose, we used the modularity measure on the network of the innovating companies to identify major groups among the innovating companies.
+                                                                                The group of nodes in blue is the part of the network that include the financial institutions which might not innovate directly but are the source of
+                                                                                capital for innovation activities. The part of the network which is colored in black includes international organizations and the one in orange includes
+                                                                                mostly universities and government research organizations. As we can see both the parts of the network that are in purple and green includes private
+                                                                                (mostly for-profit companies) companies."))
+                                   ),
+                                   column(6,
+                                          tags$img(height = "20%", width = "100%", src = "modularity_class_for_innov_companies.png")
+
+
+
+                                   )
+
                                  )
+
+
 
 
                                  ),
