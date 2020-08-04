@@ -276,7 +276,19 @@ ui <- fluidPage(
 
                                  ),
 
-                        tabPanel("Scatterplots")
+                        tabPanel("Scatterplots",
+                                 fluidRow(column(5, wellPanel(p("fafadfidsahfioadshfioadfjaiodshfoadif"))),
+                                          column(6, tags$img(height = "90%", width = "90%", src = "dna_ndc_scatter.png")),
+                                          column(1)),
+
+                                 fluidRow(column(5, wellPanel(p("fasdfhadiofjadfhadifjadifjpadsfh"))),
+                                          column(6, tags$img(height = "40%", width = "50%", src = "dna_fda_scatter.png")),
+                                          column(1))
+
+
+                                 )
+
+
 
                         ),
 
