@@ -12,7 +12,7 @@ library(DT)
 ui <- fluidPage(
   theme ="themes.css",
 
-  navbarPage(title = span("Business Innovation", style = "color:#232D4B"),
+  navbarPage(title ="Business Innovation",
              tabPanel("About",style = "margin:45px",
                       fluidRow(
                         column(3, tags$a(tags$img(height = "80%", width = "80%", src = "biilogo.png"),href="https://biocomplexity.virginia.edu/")),
