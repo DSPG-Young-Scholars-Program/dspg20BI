@@ -220,14 +220,23 @@ ui <- fluidPage(
                                    column(6,
                                           h4("Innovation vs Non-Innovation", align = "center"),
 
-                                          wellPanel(style = "margin-top:80px",p("This network shows major companies that appeared in Dow Jones news article database. The orange nodes are the company names that have been mentioned in
-                                                      articles that reported innovation, whereas, the companies in green are reported in the articles but not associated with innovation. The node sizes are based
-                                                      on the weighted degree of the nodes which indicate how well connected a node is in a network. That is, a higher weighted degree translates into greater importance
-                                                      of a node in the network. From the network we can see Companies like Johnson & Johnson is the biggest node among companies and Citigroup Inc., JP Morgan Chase & Co.
-                                                      are the most connected financial institutes."))
+                                          wellPanel(style = "margin-top:80px",p("This network shows major companies that appeared in Dow Jones news article database and associated with
+                                                                                news article that either mentioned about innovation (7.29% of our dataset) or did not mention about innovation (43.48%).
+                                                                                49.1% of the companies in the dataset did not have any information about innovation and 0.13% were not identified as innovator or non-innovator,
+                                                                                so we dropped them from the network. The network has an average degree of 13.901 and an average weighted degree of 14.42.
+                                                                                There are 181 connected components in the network. The average path length is 3.279. We used the Yifan Hu layout for the network.
+                                                                                Nodes are color coded based on whether they are innovating companies/organization or non-innovating.
+                                                                                The orange nodes are the company names that have been mentioned in articles that reported innovation, whereas,
+                                                                                the companies in green are reported in the articles but not associated with innovation. We ranked the node sizes based on the weighted
+                                                                                degree of the nodes, which ranges between 0 and 245. The weighted degree of a node indicates how well connected the node is in a network.
+                                                                                That is, a higher weighted degree translates into greater importance of a node in the network. From the network we can see Companies like Johnson & Johnson
+                                                                                is the biggest node among companies and Citigroup Inc., JP Morgan Chase & Co. are the most connected financial institutes.
+                                                                                To improve the readability of the network map we filtered the network using degree of the nodes, which ranges from 0 to 201 for this network.
+                                                                                We set the degree to be between 20 and 201 to capture the nodes that are more important in the network and the names in the network indicate the companies
+                                                                                that are the most important component of the network with degree between 75 and 201."))
                                    ),
                                    column(6,
-                                          tags$img(height = "20%", width = "100%", src = "innov_vs_non_innov_companies.png")
+                                          tags$img(height = "20%", width = "100%", src = "innov_non_innov_network_First.png")
 
 
 
@@ -237,11 +246,23 @@ ui <- fluidPage(
                                    column(6,
                                           h4("Major Innovating Companies", align = "center"),
 
-                                          wellPanel(style = "margin-top:80px",p("Here we separated the innovating companies from the non-innovating ones to get a better idea about who are the major companies in the network that have been mentioned in the articles that are about business innovation. We can see that Johnson & Johnson, Glaxo Smith PLC, Bristol-Myers Squibb Co,
-                                                                                 Abbott Laboratories Inc. are the most prominent ones. We are still using weighted degree to determine the node size."))
+                                          wellPanel(style = "margin-top:80px",p("Next we looked into the type of companies that appeared as the innovative companies in the article database (colored in orange in last network).
+                                                                                Our aim was to classify these companies into groups which can give us insight about particular industry.
+                                                                                Modularity measure of a network enables us to visualize the existing communities in the network by classifying the nodes into different groups.
+                                                                                Therefore, for our purpose, we used the modularity measure on the network of the innovating companies to identify major groups among the innovating companies.
+                                                                                Average degree for the network is 4.627 and weighted average degree is 5.53. There are 50 communities in this network as identified by the modularity measure.
+                                                                                The network has 44 connected components and an average path length of 2.829. Again we set the node sizes based on the weighted degree that ranges between 1 and
+                                                                                73 for this network. Next we set the color of the communities in the network by selecting the modularity classes ranging from 0 to 49.
+                                                                                In the network plot we can see the modularity class 32 in green which includes 15.66% of all nodes in the network, modularity class 48 in purple (15.66%),
+                                                                                class 14 in light blue (13.86%), class 35 in black (9.64%), class 18 in red (7.23%), class 17 in yellow (4.82%) and class 42 in dark blue (4.22%).
+                                                                                The name shown in the network are the most important nodes here with degree between 11 and 47 and rest of the nodes have degrees between 0 and 11.
+                                                                                We can see that the community in green is the part of the network that include the financial institutions which might not innovate directly but are the
+                                                                                sources of capital for innovation activities. The part of the network which is colored in black includes international organizations and the one in red
+                                                                                includes mostly universities and government funded research organizations. And both the parts of the network that are in purple and light blue includes
+                                                                                private (mostly for-profit companies) innovating companies."))
                                    ),
                                    column(6,
-                                          tags$img(height = "20%", width = "100%", src = "major_innovating_companies.png")
+                                          tags$img(height = "20%", width = "100%", src = "modularity_class_Second.png")
 
 
 
@@ -253,17 +274,11 @@ ui <- fluidPage(
                                    column(6,
                                           h4("Major Innovating Companies", align = "center"),
 
-                                          wellPanel(style = "margin-top:50px",p("Next we looked into the type of companies that appeared as the innovative companies in the article database.
-                                                                                Our aim was to classify these companies into groups which can give us insight about particular industry.
-                                                                                Modularity measure of a network enables us to visualize the existing groups in the network by classifying the nodes into different groups.
-                                                                                Therefore, for our purpose, we used the modularity measure on the network of the innovating companies to identify major groups among the innovating companies.
-                                                                                The group of nodes in blue is the part of the network that include the financial institutions which might not innovate directly but are the source of
-                                                                                capital for innovation activities. The part of the network which is colored in black includes international organizations and the one in orange includes
-                                                                                mostly universities and government research organizations. As we can see both the parts of the network that are in purple and green includes private
-                                                                                (mostly for-profit companies) companies."))
+                                          wellPanel(style = "margin-top:50px",p("We looked further into the two groups that include private companies to see the difference between them. We can see the group that were colored in purple in the last network plot (modularity class 48), includes mostly pharmaceutical companies. This plot gives us the major pharmaceutical companies that are engaged in business innovation. Again, Johnson & Johnson, Glaxo Smith being the most significant ones, Boston Scientific Corporation, Helsinn Healthcare,
+                                                                                Juniper Pharmaceuticals Inc., Hansen Medical Inc., GE Healthcare etc. are the other major companies in this network."))
                                    ),
                                    column(6,
-                                          tags$img(height = "20%", width = "100%", src = "modularity_class_for_innov_companies.png")
+                                          tags$img(height = "20%", width = "100%", src = "innov_pharma_companies_Third.png")
 
 
 
