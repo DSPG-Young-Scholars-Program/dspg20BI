@@ -277,12 +277,27 @@ ui <- fluidPage(
                                  ),
 
                         tabPanel("Scatterplots",
-                                 fluidRow(column(5, wellPanel(p("fafadfidsahfioadshfioadfjaiodshfoadif"))),
-                                          column(6, tags$img(height = "90%", width = "90%", src = "dna_ndc_scatter.png")),
+                                 fluidRow(column(12, align = "center", h5("Scatterplots"))),
+                                 br(),
+                                 br(),
+                                 fluidRow(column(6, wellPanel(p("Another method of visualizing the relationships between the different datasets is through the following scatterplots.
+                                                                These plots were created with the data obtained after the matching process. The x-axis represents the percent of FDA listings,
+                                                                this value is the mean calculation of mentions for each parent company in FDA. The y-axis represents the percent of companies mentioned in DNA.
+                                                                This value is the mean calculation of mention for each parent company in DNA. This scatterplot shows that there is a weak
+                                                                correlation between how much each company was mentioned in DNA versus FDA. This graph is useful as it informs us to the companies that may
+                                                                have many articles mentioning's but did not have an application approved for drug innovation with the FDA by December 17th, 2019, and vice versa."))),
+                                          column(5, tags$img(height = "70%", width = "70%", src = "dna_fda_scatter.png")),
                                           column(1)),
+                                 br(),
+                                 br(),
 
-                                 fluidRow(column(5, wellPanel(p("fasdfhadiofjadfhadifjadifjpadsfh"))),
-                                          column(6, tags$img(height = "40%", width = "50%", src = "dna_fda_scatter.png")),
+                                 fluidRow(column(6, wellPanel(p("The DNAxNDCxFDA plot was created with the data obtained after the matching process. The x-axis represents the percent of NDC listings,
+                                                                this value is the mean calculation of mentions for each parent company in NDC. The y-axis represents the percent of companies mentioned in DNA.
+                                                                This value is the mean calculation of mention for each parent company in DNA. The color of the points is a binary factor on whether the company
+                                                                received FDA approval. This scatterplot shows that there is a very weak correlation between how much each company was mentioned in DNA versus NDC.
+                                                                This graph is useful as it informs us to the companies that may have many articles mentioning's but did not have an informed the FDA of their innovation
+                                                                through NDC by December 17th, 2019, and vice versa."))),
+                                          column(5, tags$img(height = "10%", width = "100%", src = "dna_ndc_scatter.png")),
                                           column(1))
 
 
