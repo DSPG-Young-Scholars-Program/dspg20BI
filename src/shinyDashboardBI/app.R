@@ -301,7 +301,7 @@ ui <- fluidPage(
                                                                 This value is the mean calculation of mention for each parent company in DNA. This scatterplot shows that there is a weak
                                                                 correlation between how much each company was mentioned in DNA versus FDA. This graph is useful as it informs us to the companies that may
                                                                 have many articles mentioning's but did not have an application approved for drug innovation with the FDA by December 17th, 2019, and vice versa."))),
-                                          column(5, tags$img(height = "70%", width = "70%", src = "dna_fda_scatter.png")),
+                                          column(5, tags$img(height = "100%", width = "100%", src = "dna_fda_scatterplot.png")),
                                           column(1)),
                                  br(),
                                  br(),
@@ -312,7 +312,7 @@ ui <- fluidPage(
                                                                 received FDA approval. This scatterplot shows that there is a very weak correlation between how much each company was mentioned in DNA versus NDC.
                                                                 This graph is useful as it informs us to the companies that may have many articles mentioning's but did not have an informed the FDA of their innovation
                                                                 through NDC by December 17th, 2019, and vice versa."))),
-                                          column(5, tags$img(height = "10%", width = "100%", src = "dna_ndc_scatter.png")),
+                                          column(5, tags$img(height = "100%", width = "100%", src = "dna_ndc_scatterplot.png")),
                                           column(1))
 
 
