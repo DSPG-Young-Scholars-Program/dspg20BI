@@ -64,14 +64,18 @@ ui <- fluidPage(
              tabPanel("Profiling the DNA Data", style = "margin:20px",
                       fluidRow(column(12, align = "center", h5("Profiling"))),
 
-                      p(style = "margin-top:25px","Our first task was to profile the DNA data in order to get a better understanding of both its quality and fitness for use. We looked primarily at metrics like data completeness,
-                      uniqueness, and validity for select columns we felt were important. Completeness is simply a percentage of how complete the data was. Uniqueness can be defined as the number of distinct entries for each of the variables. While our
+                      p(style = "margin-top:25px","Our first task was to profile the DNA data in order to get a better understanding of the data we would be working with. We looked primarily at metrics like data completeness,
+                      uniqueness, and validity for specific columns we felt were important. Completeness is simply a percentage of how complete the data was. Uniqueness can be defined as the number of distinct entries for each of the variables. While our
                       criteria for what counted as valid changed depending on the variable, the general definition of what it means to be valid remains consistent -- a value that is legitimate and makes sense given the context of the variable being looked at.
-                      Each company-related variable (i.e company_codes, company_codes_about, etc) was a comma seperated list of codes, with each code representing a company mentioned in their respective articles.
+                      The most important columns to us involved all the columns with company codes in them. Each company-related variable (i.e company_codes, company_codes_about, etc) was a comma seperated list of codes, with each code representing a company.
                       We defined a code in these company columns as valid if and only if the code appeared in both the DNA articles and the accompanying DNA data dictionary. For instance, the company_codes column contains company codes for all
                       companies mentioned in a particular article, with some being listed more than once. Obtaining these company codes and getting the unique count revealed a total of 73,688 total distinct companies mentioned in these 1.9 million articles. However, only 64,005, or about 86.9% of these companies, were found
-                      in the DNA code dictionary.Valid publication dates for these articles were defined as simply being past 2010,
-                      as we were mainly concerned with articles published within the last decade.Finally, valid word counts for these articles needed to be greater than 100 but less than 10,000."),
+                      in the DNA code dictionary.It would be these valid company codes that we used going forward in our cleaning, matching, and data linkage.
+
+                      When looking for articles that fit our criteria of having greater than 100 word but less than 10,000, we found that about 78% of the DNA articles were what we considered valid. Likewise, we were interested in seeing the percentage of articles
+                      being published past 2010. We found that 100% of the articles fit this criteria."),
+
+                      p(style = "margin-top:25px", "It is important to reiterate that we looked at the entirety of the DNA data to get the companies we defined as valid, and we used those valid companies throughout the rest of our project this summer."),
                       br(),
 
                       sidebarLayout(
