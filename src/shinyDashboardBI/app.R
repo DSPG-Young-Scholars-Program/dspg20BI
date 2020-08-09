@@ -160,7 +160,10 @@ ui <- fluidPage(
                                        Johnson & Johnson rank consistently at the top, indicating that these corporations are some of the most talked about in the pharma space.
                                        ")
                                      ),
-                        mainPanel(imageOutput("comp"))
+
+                        mainPanel(
+                          helpText("Note: These bar charts show the top company mentions for companies whose codes are in both DNA and the DNA data dictionary"),
+                          imageOutput("comp"))
                       )
 
              )
