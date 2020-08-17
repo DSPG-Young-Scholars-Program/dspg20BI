@@ -281,8 +281,8 @@ ui <- fluidPage(
                                    column(6,
                                           h4("Major Innovative Companies", align = "center"),
 
-                                          wellPanel(style = "margin-top:50px",p("We looked further into the two groups that include private companies to see the difference between them. We can see the group that were colored in purple in the last network plot (modularity class 48), includes mostly pharmaceutical companies. This plot gives us the major pharmaceutical companies that are engaged in business innovation. Again, Johnson & Johnson, Glaxo Smith being the most significant ones, Boston Scientific Corporation, Helsinn Healthcare,
-                                                                                Juniper Pharmaceuticals Inc., Hansen Medical Inc., GE Healthcare etc. are the other major companies in this network."))
+                                          wellPanel(style = "margin-top:50px",p("We see that the group colored in purple in the last network plot includes some major pharma companies like Johnson & Johnson and Glaxo Smith Kline PLC. Thus, we explored that specific community in further detail below. Looking at figure 8,
+                                                                                we can see that pharmaceutical or healthcare companies like Helsinn Healthcare, Juniper Pharmaceuticals Inc., Capital IQ Inc, and Bayer AG are other major innovative players in this network."))
                                    ),
                                    column(6,
                                           tags$img(height = "20%", width = "100%", src = "innov_pharma_companies_Third.png")
