@@ -4,19 +4,36 @@ library(ggplot2)
 library(data.table)
 library(rsconnect)
 library(DT)
+library(shinyjs)
 
 #Add hyperlinks to necessary places (i.e logos etc)
 
 #tags$a(tags$img(height = "100%", width = "70%", src = "biilogo.png", align = "left" ), href="https://biocomplexity.virginia.edu/"
 
+jscode <- "var referer = document.referrer;
+           var n = referer.includes('economic');
+           var x = document.getElementsByClassName('navbar-brand');
+           if (n != true) {
+             x[0].innerHTML = '<div style=\"margin-top:-14px\"><a href=\"https://datascienceforthepublicgood.org/events/symposium2020/poster-sessions\">' +
+                              '<img src=\"DSPG_black-01.png\", alt=\"DSPG 2020 Symposium Proceedings\", style=\"height:42px;\">' +
+                              '</a></div>';
+           } else {
+             x[0].innerHTML = '<div style=\"margin-top:-14px\"><a href=\"https://datascienceforthepublicgood.org/economic-mobility/community-insights\">' +
+                              '<img src=\"AEMLogoGatesColorsBlack-11.png\", alt=\"Gates Economic Mobility Case Studies\", style=\"height:42px;\">' +
+                              '</a></div>';
+           }
+           "
+
 ui <- fluidPage(
   theme ="themes.css",
+  useShinyjs(),
 
   navbarPage(title ="Business Innovation",
-             tabPanel("About",style = "margin:45px",
+             tabPanel("About",
+                      style = "margin:45px",
                       fluidRow(
                         column(3, tags$a(tags$img(height = "80%", width = "80%", src = "biilogo.png"),href="https://biocomplexity.virginia.edu/")),
-                        column(6, h1("Business Innovation")),
+                        column(6, h2("Detecting and Linking Pharmaceutical Innovators in News Articles")),
                         column(3, tags$a(tags$img(height = "80%", width = "80%", src = "partnerlogos.png", align = "right"), href= "https://www.nsf.gov/statistics/"))
                       ),
 
@@ -369,6 +386,8 @@ ui <- fluidPage(
 
 
 server <- function(input, output) {
+  # Run JavaScript Code
+  runjs(jscode)
 
   output$pub <- renderImage({
 
